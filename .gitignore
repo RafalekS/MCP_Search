@@ -1,0 +1,37 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# IDE settings
+.vscode/
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python cache / runtime files
+*.log
+*.bak
+*.tmp
+
+# Backup folder
+backup/
+
+# Cache data
+cache/
+
+
+# Test scripts
+test_github.cmd
+framework/test.py

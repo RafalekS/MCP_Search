@@ -1,0 +1,8 @@
+customtkinter>=5.2.0
+CTkListbox>=1.4
+requests>=2.25.0
+Pillow>=8.0.0
+packaging
+beautifulsoup4>=4.9.0
+lxml>=4.6.0
+reportlab>=3.6.0
