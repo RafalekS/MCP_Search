@@ -31,6 +31,9 @@ backup/
 # Cache data
 cache/
 
+# Pickle cache files
+*.pkl
+
 
 # Test scripts
 test_github.cmd
