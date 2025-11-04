@@ -1,0 +1,87 @@
+{
+  "url_param": {
+    "pulsemcp.com": {
+      "status": "error",
+      "error": "403 Client Error: Forbidden for url: https://www.pulsemcp.com/servers?q=memory",
+      "url": "https://www.pulsemcp.com/servers?q=memory"
+    },
+    "mcpservers.org": {
+      "status": "error",
+      "error": "403 Client Error: Forbidden for url: https://mcpservers.org/?q=memory",
+      "url": "https://mcpservers.org/?q=memory"
+    },
+    "mcpserverfinder.com": {
+      "status": "error",
+      "error": "403 Client Error: Forbidden for url: https://www.mcpserverfinder.com/search?q=memory",
+      "url": "https://www.mcpserverfinder.com/search?q=memory"
+    }
+  },
+  "awesome_list": {
+    "github_modelcontextprotocol_servers": {
+      "status": "success",
+      "repo": "modelcontextprotocol/servers",
+      "file": "README.md",
+      "content_length": 337256,
+      "total_links": 1830,
+      "matching_links": 8,
+      "sample_matches": [
+        [
+          "Memory",
+          "src/memory"
+        ],
+        [
+          "Elasticsearch Memory",
+          "https://github.com/fredac100/elasticsearch-memory-mcp"
+        ],
+        [
+          "PyPI",
+          "https://pypi.org/project/elasticsearch-memory-mcp/"
+        ]
+      ]
+    },
+    "github_punkpeye_awesome_mcp_servers": {
+      "status": "success",
+      "repo": "punkpeye/awesome-mcp-servers",
+      "file": "README.md",
+      "content_length": 207700,
+      "total_links": 1116,
+      "matching_links": 6,
+      "sample_matches": [
+        [
+          "Knowledge & Memory",
+          "#knowledge--memory"
+        ],
+        [
+          "CheMiguel23/MemoryMesh",
+          "https://github.com/CheMiguel23/MemoryMesh"
+        ],
+        [
+          "modelcontextprotocol/server-memory",
+          "https://github.com/modelcontextprotocol/servers/tree/main/src/memory"
+        ]
+      ]
+    },
+    "github_serp_ai_awesome_mcp_servers": {
+      "status": "success",
+      "repo": "serp-ai/awesome-mcp-servers",
+      "file": "README.md",
+      "content_length": 663494,
+      "total_links": 3442,
+      "matching_links": 44,
+      "sample_matches": [
+        [
+          "mcp-neo4j-memory-server",
+          "https://serp.co/mcp/servers/JovanHsu-mcp-neo4j-memory-server"
+        ],
+        [
+          "basic-memory",
+          "https://serp.co/mcp/servers/basicmachines-co-basic-memory"
+        ],
+        [
+          "memory-bank-mcp",
+          "https://serp.co/mcp/servers/movibe-memory-bank-mcp"
+        ]
+      ]
+    }
+  }
+}

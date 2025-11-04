@@ -1,0 +1,174 @@
+{
+  "github_modelcontextprotocol_servers": {
+    "status": "success",
+    "repo": "modelcontextprotocol/servers",
+    "file": "README.md",
+    "content_length": 337256,
+    "total_links": 1830,
+    "tool_links": 1825,
+    "sample_tools": [
+      "Model Context Protocol... \u2192 https://modelcontextprotocol.io/...",
+      "C# MCP SDK... \u2192 https://github.com/modelcontextprotocol/csharp-sdk...",
+      "Go MCP SDK... \u2192 https://github.com/modelcontextprotocol/go-sdk..."
+    ]
+  },
+  "github_punkpeye_awesome_mcp_servers": {
+    "status": "success",
+    "repo": "punkpeye/awesome-mcp-servers",
+    "file": "README.md",
+    "content_length": 207700,
+    "total_links": 1116,
+    "tool_links": 1072,
+    "sample_tools": [
+      "![Awesome... \u2192 https://awesome.re/badge.svg...",
+      "![\u0e44\u0e17\u0e22... \u2192 https://img.shields.io/badge/Thai-Click-blue...",
+      "![English... \u2192 https://img.shields.io/badge/English-Click-yellow..."
+    ]
+  },
+  "github_serp_ai_awesome_mcp_servers": {
+    "status": "success",
+    "repo": "serp-ai/awesome-mcp-servers",
+    "file": "README.md",
+    "content_length": 663494,
+    "total_links": 3442,
+    "tool_links": 3432,
+    "sample_tools": [
+      "MCP Servers... \u2192 https://gist.github.com/devinschumacher/fc434091c6...",
+      "SERP AI MCP Servers... \u2192 https://serp.ai/mcp/servers/...",
+      "SERP MCP Servers... \u2192 https://serp.co/mcp/servers/..."
+    ]
+  },
+  "github_pipedreamhq_awesome_mcp_servers": {
+    "status": "success",
+    "repo": "pipedreamhq/awesome-mcp-servers",
+    "file": "README.md",
+    "content_length": 429545,
+    "total_links": 2624,
+    "tool_links": 2599,
+    "sample_tools": [
+      "![Awesome... \u2192 https://awesome.re/badge.svg...",
+      "MCP... \u2192 https://modelcontextprotocol.io/...",
+      "Model Context Protocol (MCP) Quickstart... \u2192 https://glama.ai/blog/2024-11-25-model-context-pro..."
+    ]
+  },
+  "github_docker_mcp_servers": {
+    "status": "error",
+    "error": "Repository or file not found: docker/mcp-servers/README.md"
+  },
+  "github_evalstate_hf_mcp_server": {
+    "status": "success",
+    "repo": "evalstate/hf-mcp-server",
+    "file": "README.md",
+    "content_length": 8649,
+    "total_links": 7,
+    "tool_links": 6,
+    "sample_tools": [
+      "here... \u2192 https://claude.ai/redirect/website.v1.67274164-23d...",
+      "https://claude.ai/settings/connectors... \u2192 https://claude.ai/settings/connectors...",
+      "https://code.visualstudio.com/mcp... \u2192 https://code.visualstudio.com/mcp..."
+    ]
+  },
+  "github_milisp_mcp_linker": {
+    "status": "success",
+    "repo": "milisp/mcp-linker",
+    "file": "README.md",
+    "content_length": 4197,
+    "total_links": 25,
+    "tool_links": 22,
+    "sample_tools": [
+      "![Downloads... \u2192 https://img.shields.io/github/downloads/milisp/mcp...",
+      "![Stars... \u2192 https://img.shields.io/github/stars/milisp/mcp-lin...",
+      "![Forks... \u2192 https://img.shields.io/github/forks/milisp/mcp-lin..."
+    ]
+  },
+  "github_samihalawa_awesome_claude_dxt": {
+    "status": "success",
+    "repo": "samihalawa/awesome-claude-dxt",
+    "file": "README.md",
+    "content_length": 61397,
+    "total_links": 378,
+    "tool_links": 376,
+    "sample_tools": [
+      "![Awesome... \u2192 https://awesome.re/badge.svg...",
+      "SCR-20250701-cxdl... \u2192 https://github.com/user-attachments/assets/91e08d1...",
+      "claude-extensions-showcase... \u2192 ./assets/claude-extensions-showcase.png..."
+    ]
+  },
+  "github_milisp_awesome_claude_dxt": {
+    "status": "success",
+    "repo": "milisp/awesome-claude-dxt",
+    "file": "README.md",
+    "content_length": 58615,
+    "total_links": 376,
+    "tool_links": 348,
+    "sample_tools": [
+      "![Awesome... \u2192 https://awesome.re/badge.svg...",
+      "![Stars... \u2192 https://img.shields.io/github/stars/milisp/awesome...",
+      "![Forks... \u2192 https://img.shields.io/github/forks/milisp/awesome..."
+    ]
+  },
+  "github_ai_agent_hub_mcp_marketplace": {
+    "status": "error",
+    "error": "Repository or file not found: AI-Agent-Hub/mcp-marketplace/README.md"
+  },
+  "github_ai_agent_hub_ai_agent_marketplace_index_mcp": {
+    "status": "error",
+    "error": "Repository or file not found: AI-Agent-Hub/ai-agent-marketplace-index-mcp/README.md"
+  },
+  "github_hesreallyhim_awesome_claude_code": {
+    "status": "success",
+    "repo": "hesreallyhim/awesome-claude-code",
+    "file": "README.md",
+    "content_length": 97353,
+    "total_links": 488,
+    "tool_links": 451,
+    "sample_tools": [
+      "![Typing SVG... \u2192 https://readme-typing-svg.demolab.com/?font=Fira+C...",
+      "![Awesome... \u2192 https://awesome.re/badge-flat2.svg...",
+      "![FREEDOM FUNDER... \u2192 /assets/freedom-funder-badge.svg..."
+    ]
+  },
+  "github_qdhenry_claude_command_suite": {
+    "status": "success",
+    "repo": "qdhenry/Claude-Command-Suite",
+    "file": "README.md",
+    "content_length": 34147,
+    "total_links": 199,
+    "tool_links": 176,
+    "sample_tools": [
+      "Total Commands... \u2192 https://img.shields.io/badge/Commands-148-brightgr...",
+      "AI Agents... \u2192 https://img.shields.io/badge/AI_Agents-54-red?styl...",
+      "GitHub Release... \u2192 https://img.shields.io/github/v/release/qdhenry/Cl..."
+    ]
+  },
+  "github_zebbern_claude_code_guide": {
+    "status": "success",
+    "repo": "zebbern/claude-code-guide",
+    "file": "README.md",
+    "content_length": 107246,
+    "total_links": 50,
+    "tool_links": 12,
+    "sample_tools": [
+      "official Claude Code documentation... \u2192 https://claude.ai/code...",
+      "Claude Code... \u2192 https://img.shields.io/npm/v/@anthropic-ai/claude-...",
+      "![Status... \u2192 https://img.shields.io/badge/Status-Active-brightg..."
+    ]
+  },
+  "github_shubhamsaboo_awesome_llm_apps": {
+    "status": "success",
+    "repo": "shubhamsaboo/awesome-llm-apps",
+    "file": "README.md",
+    "content_length": 13872,
+    "total_links": 84,
+    "tool_links": 84,
+    "sample_tools": [
+      "\ud83c\udf99\ufe0f AI Blog to Podcast Agent... \u2192 starter_ai_agents/ai_blog_to_podcast_agent/...",
+      "\u2764\ufe0f\u200d\ud83e\ude79 AI Breakup Recovery Agent... \u2192 starter_ai_agents/ai_breakup_recovery_agent/...",
+      "\ud83d\udcca AI Data Analysis Agent... \u2192 starter_ai_agents/ai_data_analysis_agent/..."
+    ]
+  },
+  "github_sindresorhus_awesome": {
+    "status": "error",
+    "error": "Repository or file not found: sindresorhus/awesome/README.md"
+  }
+}
