@@ -9,7 +9,6 @@
     "corner_radius": 6,
     "border_width": 0,
     "fg_color": ["#EBEBEC", "#212121"],
-    "top_fg_color": ["#EBEBEC", "#212121"],
     "border_color": ["#979DA2", "#565B5E"]
   },
   "CTkButton": {
