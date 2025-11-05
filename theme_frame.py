@@ -60,19 +60,27 @@ class DynamicThemeManager:
         
         try:
             # Load the theme using customtkinter's internal mechanism.
-            # Note: In CTk 5.0+, the ThemeManager.load_theme() modifies the internal 
-            # state of CTk, but often doesn't automatically reconfigure existing widgets 
-            # unless they are explicitly told to. We handle this re-configuration 
+            # Note: In CTk 5.0+, the ThemeManager.load_theme() modifies the internal
+            # state of CTk, but often doesn't automatically reconfigure existing widgets
+            # unless they are explicitly told to. We handle this re-configuration
             # in the _apply_theme_recursively method.
             CTkThemeManager.load_theme(theme_path)
-            
+
+            # CRITICAL FIX: Remove deprecated top_fg_color from theme if it exists
+            # CustomTkinter may still have this in its internal state from default themes
+            if "CTkFrame" in CTkThemeManager.theme and "top_fg_color" in CTkThemeManager.theme["CTkFrame"]:
+                del CTkThemeManager.theme["CTkFrame"]["top_fg_color"]
+                print("Removed deprecated top_fg_color from loaded theme")
+
             # Recursively apply the loaded theme to existing widgets in the GUI
             self._apply_theme_recursively(self.root_window)
-            
+
             print(f"Theme '{theme_name}' applied successfully.")
-            
+
         except Exception as e:
-            print(f"Error loading or applying theme: {e}")
+            import traceback
+            error_details = traceback.format_exc()
+            print(f"Error loading or applying theme: {e}\nTraceback:\n{error_details}")
 
     def _apply_theme_recursively(self, parent_widget):
         """

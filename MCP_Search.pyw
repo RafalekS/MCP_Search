@@ -2562,8 +2562,11 @@ def main():
         app.mainloop()
         
     except Exception as e:
-        logger.error(f"Application error: {e}")
-        messagebox.showerror("Application Error", f"An error occurred: {e}")
+        import traceback
+        error_details = traceback.format_exc()
+        logger.error(f"Application error: {e}\nTraceback:\n{error_details}")
+        print(f"Full error traceback:\n{error_details}")
+        messagebox.showerror("Application Error", f"An error occurred: {e}\nCheck console for details.")
 
 if __name__ == "__main__":
     main()
