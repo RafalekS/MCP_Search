@@ -18,9 +18,6 @@
       "#181b28",
       "#181b28"
     ],
-      "#181b28",
-      "#181b28"
-    ],
     "border_color": [
       "#10121f",
       "#10121f"
@@ -191,7 +188,6 @@
       "#cdc8ce",
       "#cdc8ce"
     ],
-    
     "button_color": [
       "#212435",
       "#212435"
@@ -199,10 +195,6 @@
     "button_hover_color": [
       "#7A848D",
       "#7A848D"
-    ],
-    "text_color": [
-      "#cdc8ce",
-      "#cdc8ce"
     ],
     "text_color_disabled": [
       "#7a8894",
