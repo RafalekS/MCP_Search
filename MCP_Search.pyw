@@ -859,23 +859,41 @@ class BaseSearchClient:
                             # Avoid URLs and email-like patterns
                             '@' not in desc_text and
                             'github.com' not in desc_text.lower()):
-                            description = desc_text[:200]  # Limit length
+                            # Smart truncation - don't cut mid-word
+                            if len(desc_text) > 200:
+                                desc_text = desc_text[:200]
+                                last_space = desc_text.rfind(' ')
+                                if last_space > 150:
+                                    desc_text = desc_text[:last_space] + '...'
+                                else:
+                                    desc_text = desc_text + '...'
+                            description = desc_text
                             break
-                
+
                 # Extract URL - look for the main server link
                 link_elem = card.find('a', href=True)
+                url = ""
+                github_url = ""
+
                 if link_elem and link_elem.get('href'):
                     href = link_elem['href']
                     url = urljoin(base_url, href) if not href.startswith('http') else href
-                    
-                    # Only add if it's a real server page, not a search filter or navigation
-                    if '/servers/' in url and url != base_url and not any(skip in url for skip in ['?q=', 'search', 'filter']):
-                        results.append(SearchResult(
-                            name=name,
-                            description=description,
-                            url=url,
-                            source=source_name
-                        ))
+
+                # Extract GitHub URL from the card
+                github_links = card.find_all('a', href=lambda x: x and 'github.com' in x)
+                if github_links:
+                    github_href = github_links[0].get('href')
+                    github_url = github_href if github_href.startswith('http') else urljoin(base_url, github_href)
+
+                # Only add if it's a real server page, not a search filter or navigation
+                if url and '/servers/' in url and url != base_url and not any(skip in url for skip in ['?q=', 'search', 'filter']):
+                    results.append(SearchResult(
+                        name=name,
+                        description=description,
+                        url=url,
+                        github_url=github_url,
+                        source=source_name
+                    ))
                 
             except Exception as e:
                 logger.error(f"Error parsing PulseMCP card: {e}")
@@ -904,48 +922,53 @@ class BaseSearchClient:
                 else:
                     name = server_path.replace('-', ' ') or "Unknown Server"
                 
-                # For mcpservers.org, descriptions are typically not available on the listing page
-                # Create a meaningful description from the URL structure, avoiding ad content
-                description = f"MCP server by {author}" if '/' in server_path else "MCP server"
-                
-                # Try to find any additional context, but be very strict about ad filtering
-                container = link.parent
-                for _ in range(2):  # Only go up 2 parent levels
-                    if container and container.parent:
-                        container = container.parent
-                    else:
-                        break
-                
-                if container:
-                    # Look for description but exclude pagination text and AD CONTENT
-                    desc_candidates = container.find_all(['p', 'div', 'span'])
-                    for desc_elem in desc_candidates:
-                        if desc_elem:
-                            desc_text = desc_elem.get_text(strip=True)
-                            # Very strict filtering to avoid ads and irrelevant content
-                            if (desc_text and len(desc_text) > 20 and len(desc_text) < 200 and
-                                desc_text != name and
-                                not any(skip in desc_text.lower() for skip in [
-                                    # Pagination/UI text
-                                    'showing', 'of', 'servers', 'page', 'view details', 'more',
-                                    'next', 'prev', 'total', 'results', 'found',
-                                    # Ad/sponsor content
-                                    'sponsor', 'discover', 'extract', 'interact', 'automated access',
-                                    'bright data', 'interface powering', 'public internet',
-                                    'advertisement', 'promoted', 'featured', 'sponsored',
-                                    # Generic content
-                                    'click here', 'learn more', 'read more', 'get started'
-                                ]) and
-                                not desc_text.startswith('http') and
-                                # Avoid single sentences that look like ads
-                                not (desc_text.count('.') <= 1 and len(desc_text.split()) > 10)):
-                                description = desc_text
-                                break
-                
+                # For mcpservers.org, descriptions often aren't unique on listing page
+                # DON'T use generic fallback - better to have "No description" than wrong info
+                description = "No description available"
+
+                # Try to find description within the SAME container as the link (not parents)
+                # This ensures we get description specific to THIS server, not page-level text
+                link_parent = link.parent
+                if link_parent:
+                    # Only look within immediate parent container
+                    desc_elem = link_parent.find('p', class_=lambda x: x and 'desc' in x if x else False)
+                    if not desc_elem:
+                        desc_elem = link_parent.find('div', class_=lambda x: x and 'desc' in x if x else False)
+                    if not desc_elem:
+                        # Last resort - look for any paragraph in same container
+                        desc_elem = link_parent.find('p')
+
+                    if desc_elem:
+                        desc_text = desc_elem.get_text(strip=True)
+                        # Strict validation - only accept if it looks like a real description
+                        if (desc_text and
+                            len(desc_text) > 20 and len(desc_text) < 500 and
+                            desc_text != name and
+                            # Reject anything that looks like an ad or page-level text
+                            not any(bad_phrase in desc_text.lower() for bad_phrase in [
+                                'deploy, configure & interrogate',
+                                'cloudflare', 'workers/kv/r2/d1',
+                                'bright data', 'discover', 'interface powering',
+                                'sponsored', 'advertisement', 'promoted',
+                                'showing', 'page', 'next', 'prev', 'results found'
+                            ]) and
+                            not desc_text.startswith('http')):
+                            description = desc_text
+
+                # Extract GitHub URL if present
+                github_url = ""
+                if link_parent:
+                    github_links = link_parent.find_all('a', href=lambda x: x and 'github.com' in x)
+                    if github_links:
+                        github_url = github_links[0].get('href')
+                        if not github_url.startswith('http'):
+                            github_url = urljoin(base_url, github_url)
+
                 results.append(SearchResult(
                     name=name,
                     description=description,
                     url=url,
+                    github_url=github_url,
                     source=source_name
                 ))
                 
@@ -1117,22 +1140,25 @@ class BaseSearchClient:
             '/about', '/contact', '/help', '/faq', '/terms', '/privacy',
             'javascript:', 'mailto:', '#', '?page=', '?sort=', '?filter='
         ]
-        
+
         # Skip if URL contains garbage patterns
         if any(pattern in result.url.lower() for pattern in garbage_patterns):
             return False
-        
-        # Skip if name is too generic or empty
+
+        # Skip if name is too generic or empty - EXPANDED LIST
         generic_names = [
             'new', 'create', 'add', 'search', 'filter', 'view', 'details', 'more',
-            'home', 'about', 'contact', 'help', 'login', 'register', 'sign up'
+            'home', 'about', 'contact', 'help', 'login', 'register', 'sign up',
+            'see more', 'read more', 'learn more', 'view all', 'show all',
+            'servers', 'tools', 'agents', 'commands', 'browse', 'explore',
+            'categories', 'tags', 'submit', 'share', 'save', 'bookmark'
         ]
-        
-        if (not result.name or 
-            result.name.lower().strip() in generic_names or 
+
+        if (not result.name or
+            result.name.lower().strip() in generic_names or
             len(result.name.strip()) < 3):
             return False
-        
+
         # For cursor.directory, be more specific
         if 'cursor.directory' in search_url:
             # Skip utility pages
@@ -1186,30 +1212,49 @@ class BaseSearchClient:
             for desc_elem in desc_candidates:
                 if desc_elem:
                     desc_text = desc_elem.get_text(strip=True)
-                    if (desc_text and len(desc_text) > 15 and 
+                    if (desc_text and len(desc_text) > 15 and
                         desc_text != name and
                         desc_text.lower() not in ['view details', 'learn more', 'read more', 'details', 'more', 'click here'] and
                         not desc_text.startswith('http') and
-                        not desc_text.startswith('www.')):
-                        description = desc_text[:200]  # Limit description length
+                        not desc_text.startswith('www.') and
+                        # Filter out common ad/promotional text
+                        not any(ad_phrase in desc_text.lower() for ad_phrase in [
+                            'deploy, configure & interrogate',
+                            'cloudflare developer platform',
+                            'sponsored', 'advertisement'
+                        ])):
+                        # Smart truncation - don't cut mid-word
+                        if len(desc_text) > 200:
+                            desc_text = desc_text[:200]
+                            # Find last space to avoid cutting mid-word
+                            last_space = desc_text.rfind(' ')
+                            if last_space > 150:  # Only if we're not cutting too much
+                                desc_text = desc_text[:last_space] + '...'
+                            else:
+                                desc_text = desc_text + '...'
+                        description = desc_text
                         break
             
             # Enhanced URL extraction with preference for result-specific links
             url_candidates = []
-            
+            github_url = ""
+
             if element.name == 'a':
                 url_candidates.append(element.get('href'))
-            
+
             # Look for links within the element
             links = element.find_all('a', href=True)
             for link in links:
                 href = link.get('href')
+                # Extract GitHub URLs
+                if 'github.com' in href and not github_url:
+                    github_url = href if href.startswith('http') else urljoin(base_url, href)
                 # Prioritize links that look like they go to individual items
                 if any(pattern in href for pattern in ['/server', '/tool', '/mcp', '/project', '/repo']):
                     url_candidates.insert(0, href)  # Put at front of list
                 else:
                     url_candidates.append(href)
-            
+
             # Use the first valid URL
             for href in url_candidates:
                 if href:
@@ -1224,6 +1269,7 @@ class BaseSearchClient:
                     name=name,
                     description=description,
                     url=url,
+                    github_url=github_url,
                     source=source_config.get('name', 'Unknown')
                 )
                 
