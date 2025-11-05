@@ -1,0 +1,368 @@
+[GENERAL]
+current_theme = default
+last_window_size = 1400x800
+last_window_position = center
+
+[SEARCH_HISTORY]
+search_1 =
+search_2 =
+search_3 =
+search_4 =
+search_5 =
+search_6 =
+search_7 =
+search_8 =
+search_9 =
+search_10 =
+
+[API_KEYS]
+github_api_key =
+tavily_api_key =
+brave_api_key =
+perplexity_api_key =
+kagi_api_key =
+
+[CATEGORIES]
+mcp_servers = mcp.so,mcpservers.org,pulsemcp.com,mcpserverfinder.com,claudemcp.com,cursor.directory/mcp,github_modelcontextprotocol_servers,github_punkpeye_awesome_mcp_servers,github_pipedreamhq_awesome_mcp_servers,github_evalstate_hf_mcp_server,github_milisp_mcp_linker,aixploria,mcpmarket,portkey_mcp,github_wong2_awesome_mcp_servers,github_tensorblock_awesome_mcp_servers
+dxt_tools = desktopextensions.com,dxt.services,dxt.so/dxts,github_samihalawa_awesome_claude_dxt,github_futureai_dxt
+ai_agents = aiagentsdirectory.com,agent.ai,aiagentsverse,aiagentslist,aiagentsdirectory_marketplace
+commands = claudecodecommands.directory,github_hesreallyhim_awesome_claude_code,github_qdhenry_claude_command_suite,github_zebbern_claude_code_guide,github_wshobson_commands
+ai_tools = github_shubhamsaboo_awesome_llm_apps
+ai_prompts = promptrr.io,prompti.ai,chatx.ai
+
+# ========================================
+# MCP SERVERS SOURCES
+# ========================================
+
+[SOURCE_mcp.so]
+name = MCP.so
+description = Community-driven platform for discovering MCP servers
+url = https://mcp.so/
+search_method = url_param
+search_endpoint = https://mcp.so/explore?q={query}
+result_fields = name,description,github_url,last_updated
+
+[SOURCE_mcpservers.org]
+name = MCPServers.org
+description = Collection of MCP servers with categories
+url = https://mcpservers.org/
+search_method = url_param
+search_endpoint = https://mcpservers.org/?q={query}
+result_fields = name,description,github_url,category
+
+[SOURCE_pulsemcp.com]
+name = PulseMCP
+description = Daily-updated directory of MCP servers (6490+ servers)
+url = https://www.pulsemcp.com/servers
+search_method = url_param
+search_endpoint = https://www.pulsemcp.com/servers?q={query}
+result_fields = name,description,github_url,last_updated
+
+[SOURCE_mcpserverfinder.com]
+name = MCP Server Finder
+description = Ultimate Model Context Protocol Directory
+url = https://www.mcpserverfinder.com/
+search_method = url_param
+search_endpoint = https://www.mcpserverfinder.com/search?q={query}
+result_fields = name,description,features,integration_details
+
+[SOURCE_claudemcp.com]
+name = Claude MCP Servers
+description = Claude-specific MCP server collection
+url = https://www.claudemcp.com/servers
+search_method = url_param
+search_endpoint = https://www.claudemcp.com/servers?q={query}
+result_fields = name,description,github_url,category
+
+[SOURCE_cursor.directory/mcp]
+name = Cursor MCP Directory
+description = MCP servers for Cursor IDE
+url = https://cursor.directory/mcp
+search_method = scrape
+search_selector = .mcp-item
+result_fields = name,description,github_url,category
+
+[SOURCE_github_modelcontextprotocol_servers]
+name = Official MCP Servers
+description = Official Model Context Protocol servers repository
+url = https://github.com/modelcontextprotocol/servers
+search_method = awesome_list
+search_repo = modelcontextprotocol/servers
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_punkpeye_awesome_mcp_servers]
+name = Awesome MCP Servers (punkpeye)
+description = Community curated list of MCP servers
+url = https://github.com/punkpeye/awesome-mcp-servers
+search_method = awesome_list
+search_repo = punkpeye/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url,language
+
+[SOURCE_github_pipedreamhq_awesome_mcp_servers]
+name = Awesome MCP Servers (Pipedream)
+description = Pipedream's curated list of MCP servers
+url = https://github.com/pipedreamhq/awesome-mcp-servers
+search_method = awesome_list
+search_repo = pipedreamhq/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_evalstate_hf_mcp_server]
+name = Hugging Face MCP Server
+description = MCP server for Hugging Face integration
+url = https://github.com/evalstate/hf-mcp-server
+search_method = awesome_list
+search_repo = evalstate/hf-mcp-server
+result_fields = name,description,github_url
+
+[SOURCE_github_milisp_mcp_linker]
+name = MCP Linker
+description = MCP server for linking APIs with OpenAPI schemas
+url = https://github.com/milisp/mcp-linker
+search_method = awesome_list
+search_repo = milisp/mcp-linker
+result_fields = name,description,github_url
+
+[SOURCE_aixploria]
+name = AIxploria MCP Directory
+description = Comprehensive list of 500+ MCP servers with detailed information
+url = https://www.aixploria.com/en/list-best-mcp-servers-directory-ai/
+search_method = scrape
+search_selector = .mcp-server-item
+result_fields = name,description,url,category
+
+[SOURCE_mcpmarket]
+name = MCP Market
+description = Directory of awesome MCP servers and clients
+url = https://mcpmarket.com/
+search_method = scrape
+search_selector = .server-card
+result_fields = name,description,github_url,category
+
+[SOURCE_portkey_mcp]
+name = Portkey MCP Servers
+description = List of 42+ MCP Servers for Claude Desktop
+url = https://portkey.ai/mcp-servers
+search_method = scrape
+search_selector = .server-listing
+result_fields = name,description,url
+
+[SOURCE_github_wong2_awesome_mcp_servers]
+name = Awesome MCP Servers (wong2)
+description = Curated list featuring MongoDB, Miro, Google Chat
+url = https://github.com/wong2/awesome-mcp-servers
+search_method = awesome_list
+search_repo = wong2/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_tensorblock_awesome_mcp_servers]
+name = TensorBlock Awesome MCP
+description = Comprehensive collection of 7260+ MCP servers
+url = https://github.com/TensorBlock/awesome-mcp-servers
+search_method = awesome_list
+search_repo = TensorBlock/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url
+
+# ========================================
+# DXT TOOLS SOURCES
+# ========================================
+
+[SOURCE_desktopextensions.com]
+name = Desktop Extensions
+description = Official DXT marketplace and documentation
+url = https://www.desktopextensions.com/
+search_method = scrape
+search_selector = .extension-card
+result_fields = name,description,download_url,category
+
+[SOURCE_dxt.services]
+name = DXT Services
+description = Ultimate Hub for Desktop Extensions & MCP Services
+url = https://dxt.services/
+search_method = scrape
+search_selector = .dxt-item
+result_fields = name,description,download_url,category
+
+[SOURCE_dxt.so/dxts]
+name = DXT.so DXTs
+description = Directory of developer experience tools
+url = https://dxt.so/dxts
+search_method = url_param
+search_endpoint = https://dxt.so/dxts?query={query}
+result_fields = name,description,url
+
+[SOURCE_github_samihalawa_awesome_claude_dxt]
+name = Awesome Claude DXT (samihalawa)
+description = 500+ Claude Desktop Extensions with categories
+url = https://github.com/samihalawa/awesome-claude-dxt
+search_method = awesome_list
+search_repo = samihalawa/awesome-claude-dxt
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_futureai_dxt]
+name = FutureAI DXT Collection
+description = Desktop Extensions for one-click MCP server installation
+url = https://github.com/FutureAIGuide/dxt
+search_method = awesome_list
+search_repo = FutureAIGuide/dxt
+search_file = README.md
+result_fields = name,description,github_url
+
+# ========================================
+# AI AGENTS SOURCES
+# ========================================
+
+[SOURCE_aiagentsdirectory.com]
+name = AI Agents Directory
+description = Marketplace for AI Agents and Frameworks (1300+ agents)
+url = https://aiagentsdirectory.com/
+search_method = scrape
+search_selector = .agent-item
+result_fields = name,description,pricing,deployment_options
+
+[SOURCE_agent.ai]
+name = Agent.ai
+description = Professional Network for AI Agents
+url = https://agent.ai/
+search_method = scrape
+search_selector = .agent-profile
+result_fields = name,description,expertise
+
+[SOURCE_aiagentsverse]
+name = AI Agents Verse
+description = Comprehensive directory connecting businesses with AI solutions
+url = https://aiagentsverse.com/
+search_method = scrape
+search_selector = .agent-card
+result_fields = name,description,category,url
+
+[SOURCE_aiagentslist]
+name = AI Agents List
+description = Interactive map of 619+ AI agents across 20 categories
+url = https://aiagentslist.com/
+search_method = scrape
+search_selector = .agent-item
+result_fields = name,description,category,url
+
+[SOURCE_aiagentsdirectory_marketplace]
+name = AI Agents Directory Marketplace
+description = 1300+ enterprise-ready agents with pricing and reviews
+url = https://aiagentsdirectory.com/marketplace
+search_method = scrape
+search_selector = .marketplace-item
+result_fields = name,description,pricing,category
+
+# ========================================
+# COMMANDS SOURCES
+# ========================================
+
+[SOURCE_claudecodecommands.directory]
+name = Claude Code Commands
+description = Directory of Claude Code Commands with MCP support
+url = https://claudecodecommands.directory/
+search_method = scrape
+search_selector = .command-card
+result_fields = name,description,download_url,author
+
+[SOURCE_github_hesreallyhim_awesome_claude_code]
+name = Awesome Claude Code
+description = Curated list of commands, files, and workflows
+url = https://github.com/hesreallyhim/awesome-claude-code
+search_method = awesome_list
+search_repo = hesreallyhim/awesome-claude-code
+search_file = README.md
+result_fields = name,description,github_url,author
+
+[SOURCE_github_qdhenry_claude_command_suite]
+name = Claude Command Suite
+description = Professional slash commands for Claude Code
+url = https://github.com/qdhenry/Claude-Command-Suite
+search_method = awesome_list
+search_repo = qdhenry/Claude-Command-Suite
+search_file = README.md
+result_fields = name,description,github_url,category
+
+[SOURCE_github_zebbern_claude_code_guide]
+name = Claude Code Guide
+description = Full guide on Claude tips and tricks
+url = https://github.com/zebbern/claude-code-guide
+search_method = awesome_list
+search_repo = zebbern/claude-code-guide
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_wshobson_commands]
+name = Production Commands (wshobson)
+description = Collection of production-ready slash commands
+url = https://github.com/wshobson/commands
+search_method = awesome_list
+search_repo = wshobson/commands
+search_file = README.md
+result_fields = name,description,github_url
+
+# ========================================
+# AI TOOLS SOURCES
+# ========================================
+
+[SOURCE_github_shubhamsaboo_awesome_llm_apps]
+name = Awesome LLM Apps
+description = Curated list of LLM-based applications
+url = https://github.com/shubhamsaboo/awesome-llm-apps
+search_method = awesome_list
+search_repo = shubhamsaboo/awesome-llm-apps
+search_file = README.md
+result_fields = name,description,github_url,category
+
+# ========================================
+# AI PROMPTS SOURCES
+# ========================================
+
+[SOURCE_promptrr.io]
+name = Promptrr
+description = AI Prompt Marketplace for ChatGPT, Bard, Leonardo & Midjourney
+url = https://promptrr.io/
+search_method = scrape
+search_selector = .prompt-item
+result_fields = name,description,price,model
+
+[SOURCE_prompti.ai]
+name = Prompti
+description = Prompt Marketplace for Business
+url = https://prompti.ai/
+search_method = scrape
+search_selector = .prompt-card
+result_fields = name,description,price,model
+
+[SOURCE_chatx.ai]
+name = ChatX
+description = Free prompt marketplace for generative AI
+url = https://chatx.ai/
+search_method = scrape
+search_selector = .prompt-item
+result_fields = name,description,model
+
+# ========================================
+# CACHE AND REQUEST SETTINGS
+# ========================================
+
+[CACHE_SETTINGS]
+cache_duration_hours = 24
+max_cache_size_mb = 100
+cache_directory = cache
+
+[REQUEST_SETTINGS]
+timeout_seconds = 30
+max_retries = 1
+retry_delay_seconds = 2
+user_agent = MCP_Search/1.0 (Windows)
+
+[UI_SETTINGS]
+show_progress_bar = true
+show_failed_sources = true
+max_results_per_source = 50
+auto_retry_failed = true
