@@ -1,0 +1,45 @@
+{
+  "source": "DXT.so DXTs",
+  "query": "unknown",
+  "timestamp": "20251105_131447",
+  "result_count": 3,
+  "results": [
+    {
+      "name": "3Fetch MCP Server@modelcontextprotocol63719mcp-server-fetch is an MCP server that empowers AI agents to fetch and process web content using methods like browser automation, OCR, HTML scraping, and document parsing. It outputs clean markdown and intelligently selects the best extraction method.",
+      "description": "Fetch MCP Server",
+      "url": "https://dxt.so/dxts/mcp-server-fetch-dxt",
+      "github_url": "",
+      "category": "",
+      "source": "DXT.so DXTs",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "29mcp-run-python@mcp-run-python11466pydantic/pydantic-ai/mcp-run-python - Run Python code in a secure sandbox via MCP tool calls, powered by Deno and Pyodide",
+      "description": "No description available",
+      "url": "https://dxt.so/dxts/mcp-run-python-dxt",
+      "github_url": "",
+      "category": "",
+      "source": "DXT.so DXTs",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "AgentSkills",
+      "description": "No description available",
+      "url": "https://agentskills.so?utm_source=dxt.so",
+      "github_url": "",
+      "category": "",
+      "source": "DXT.so DXTs",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://dxt.so/dxts",
+    "results_extracted": 3,
+    "search_url": "https://dxt.so/dxts",
+    "base_url": "https://dxt.so/dxts"
+  }
+}

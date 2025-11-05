@@ -38,3 +38,5 @@ cache/
 # Test scripts
 test_github.cmd
 framework/test.py
+debug_results/html/
+config/conf.ini

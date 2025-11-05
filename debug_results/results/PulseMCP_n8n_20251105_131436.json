@@ -1,0 +1,185 @@
+{
+  "source": "PulseMCP",
+  "query": "n8n",
+  "timestamp": "20251105_131436",
+  "result_count": 17,
+  "results": [
+    {
+      "name": "n8n",
+      "description": "Integrates with n8n workflow automation platform to provide conversational access to 525+ nodes including AI-capable...",
+      "url": "https://www.pulsemcp.com/servers/czlonkowski-n8n",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Builder",
+      "description": "Enables creation and management of n8n workflows for simplified automation and integration tasks.",
+      "url": "https://www.pulsemcp.com/servers/makafeli-n8n-workflow-builder",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n",
+      "description": "Integrates with n8n workflow automation platform to enable workflow management, execution monitoring, and task...",
+      "url": "https://www.pulsemcp.com/servers/leonardsellem-n8n",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n",
+      "description": "Bridges Claude with n8n automation workflows, enabling direct creation, execution, and management of workflows,...",
+      "url": "https://www.pulsemcp.com/servers/illuminaresolutions-n8n",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Builder",
+      "description": "Integrates with n8n workflow automation platform to enable natural language workflow creation, management, and...",
+      "url": "https://www.pulsemcp.com/servers/ifmelate-n8n-workflow-builder",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow",
+      "description": "Enables AI assistants to execute n8n workflows directly via WebSocket, creating a bridge between conversation context...",
+      "url": "https://www.pulsemcp.com/servers/n8n-workflow",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Builder",
+      "description": "Enables creation and management of n8n workflows through a TypeScript-based server that provides tools for designing,...",
+      "url": "https://www.pulsemcp.com/servers/jimmy974-n8n-workflow-builder",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "N8N Workflow Summarizer",
+      "description": "Transforms complex n8n workflow JSON files into clear markdown summaries, extracting nodes, connections, and...",
+      "url": "https://www.pulsemcp.com/servers/gblack686-n8n-workflow-summarizer",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Validator",
+      "description": "Provides a validation and best practices framework for n8n workflows, enabling workflow validation, API integration,...",
+      "url": "https://www.pulsemcp.com/servers/lowprofix-n8n-workflow-validator",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Assistant",
+      "description": "Enables searching and retrieving n8n documentation, example workflows, and community forum content through a single...",
+      "url": "https://www.pulsemcp.com/servers/onurpolat05-n8n-assistant",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Automation",
+      "description": "Enables AI to create, manage, and execute n8n workflows using natural language commands for automating complex...",
+      "url": "https://www.pulsemcp.com/servers/n8n-workflow-automation",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n",
+      "description": "Integrates with n8n workflow automation platform to enable natural language management of workflows, executions,...",
+      "url": "https://www.pulsemcp.com/servers/n8n",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Agent Server",
+      "description": "Provides a foundation for building persistent agent systems with memory storage, user authentication, and n8n...",
+      "url": "https://www.pulsemcp.com/servers/leadbroaf-agent",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Supabase",
+      "description": "Integrates with Supabase platform for complete database operations, edge function deployment, project management, and...",
+      "url": "https://www.pulsemcp.com/servers/bifrotek-supabase-http-stream-n8n",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Claude Code Agent",
+      "description": "Provides persistent memory management and project automation capabilities through automated memory dumps with cron...",
+      "url": "https://www.pulsemcp.com/servers/jomynn-claude-code-agent",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Career Break Resilience (Resume Optimizer)",
+      "description": "Integrates with N8N workflows to filter and curate resume bullet points based on automated relevance scoring,...",
+      "url": "https://www.pulsemcp.com/servers/krithika93-career-break-resilience",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "NestJS Customer Service Backend",
+      "description": "Integrates with NestJS customer service backend to manage complaint workflows, user data, employee assignments, and...",
+      "url": "https://www.pulsemcp.com/servers/diasm3-nestjs-customer-service-backend",
+      "github_url": "",
+      "category": "",
+      "source": "PulseMCP",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://www.pulsemcp.com/servers?q=n8n",
+    "results_extracted": 17,
+    "search_url": "https://www.pulsemcp.com/servers?q=n8n",
+    "base_url": "https://www.pulsemcp.com/servers"
+  }
+}

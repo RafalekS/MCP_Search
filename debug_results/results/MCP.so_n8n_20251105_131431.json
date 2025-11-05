@@ -1,0 +1,425 @@
+{
+  "source": "MCP.so",
+  "query": "n8n",
+  "timestamp": "20251105_131431",
+  "result_count": 41,
+  "results": [
+    {
+      "name": "MCP Agent Server",
+      "description": "Open-source, modular “brain” for AI employees. Integrates with n8n and workflow engines, features persistent agent memory, natural language interface, and feedback loops. SaaS-ready, extensible, and e",
+      "url": "https://mcp.so/server/mcp-agent-server/LeadBroaf",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "🧠 Model Context Protocol (MCP) Server",
+      "description": "A modular FastAPI-based MCP (Model Context Protocol) server that supports reading local JSON and Excel files via HTTP API. Easily extensible for agents and automation tools like Flowsie AI or n8n. Inc",
+      "url": "https://mcp.so/server/mcp-server/sathishj21",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "🧠 Agente de Reportes — ComaPOS | n8n + MCP Server/Client",
+      "description": "Este repositorio contiene un agente inteligente construido en n8n que utiliza la arquitectura MCP Server y MCP Client para generar, automatizar y entregar reportes del sistema de punto de venta ComaPO",
+      "url": "https://mcp.so/server/ComaPOS-AI-AGENT-n8n/aleosorio22",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Dummy MCP Server",
+      "description": "n8n을 위한 sse 기반 mcp server 입니다.",
+      "url": "https://mcp.so/server/dummy_mcp_server/restful3",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "fastmcp-boilerplate",
+      "description": "A short demo showing how to trigger an n8n workflow from an MCP server",
+      "url": "https://mcp.so/server/n8n-mcp-server-demo/kyrelldixon",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Builder MCP",
+      "description": "MCP server which allow LLM in agent mode build n8n workflows for you",
+      "url": "https://mcp.so/server/n8n-workflow-builder-mcp/ifmelate",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "🔌 N8N Node MCP Server",
+      "description": "MCP server for accessing N8N node information through Claude Desktop",
+      "url": "https://mcp.so/server/n8n-node-mcp-server/ari-json",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "End-to-End Agentic AI Automation Lab",
+      "description": "This repository contains hands-on projects, code examples, and deployment workflows. Explore multi-agent systems, LangChain, LangGraph, CrewAI, RAG, automation with n8n, and scalable agent deployment ",
+      "url": "https://mcp.so/server/End-to-End-Agentic-Ai-Automation-Lab/MDalamin5",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Glide to n8n MCP Adapter",
+      "description": "MCP server that connects Glide API requests to n8n workflows using the Model Context Protocol",
+      "url": "https://mcp.so/server/glide-n8n-mcp-adapter/mows21",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Mcp Github",
+      "description": "Code to integrate n8n with github mcp server",
+      "url": "https://mcp.so/server/mcp-github/HaritsAcheiz",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n MCP Server",
+      "description": "MCP server for n8n integration with Claude and other LLMs",
+      "url": "https://mcp.so/server/n8n-mcp-server-claude/mows21",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "mcp-test-server.",
+      "description": "Petit serveur Express pour tester MCP avec n8n.",
+      "url": "https://mcp.so/server/mcp-test-server./kailee83",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Web-Scraping-Agent-with-N8N-and-MCP-Server",
+      "description": "Web Scraping Agent with N8N and MCP Server",
+      "url": "https://mcp.so/server/Web-Scraping-Agent-with-N8N-and-MCP-Server/NarviAdil",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "N8N MCP Server",
+      "description": "MCP Server for N8N API integration with Claude and other LLMs",
+      "url": "https://mcp.so/server/n8n-mcp-server/bader1919",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n AI Agent for DVM MCP",
+      "description": "An AI agent built in n8n which can find and use Model Context Protocol (MCP) Server Tools served as Data Vending Machines (DVM) over the Nostr network.",
+      "url": "https://mcp.so/server/n8n-ai-agent-for-mcp/belokolek",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "MCP-Server",
+      "description": "This repository contains workflow configurations for a Model Context Protocol (MCP) server that integrates AI capabilities with n8n automation platform.",
+      "url": "https://mcp.so/server/MCP-Server/sushant1827",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "@davewind/mysql-mcp-server",
+      "description": "mcp model-context-protocol mysql cursor n8n",
+      "url": "https://mcp.so/server/mysql-mcp-server/dave-wind",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Azure DevOps MCP Server",
+      "description": "MCP N8N Azure Devops",
+      "url": "https://mcp.so/server/mcp-server-azure-devops/ramosjuan24",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "docs",
+      "description": "使用 Hexo 架設簡單的分享技術文件並發佈到\"cloudflare\"，包含介紹文章: \"全面瞭解 n8n v1.88.0 的重磅更新 —— MCP Server\"、\"教會你用 Google AI Studio 提早結束工作回家\"、\"C# 設計模式學習筆記與程式碼範例\"、\"JavaScript 設計模式學習筆記與程式碼範例\"、\"Functional Design Pattern 是一個結合函數式程",
+      "url": "https://mcp.so/server/docs/chiisen",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "MCP Server with SSE endpoint for Obsidian",
+      "description": "A MCP SSE server for your self hosted n8n",
+      "url": "https://mcp.so/server/mcp-obsidian-sse/duncanchiu409",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n",
+      "description": "全面瞭解 n8n v1.88.0 的重磅更新 —— MCP Server",
+      "url": "https://mcp.so/server/n8n/chiisen",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Smartlead Simplified MCP Server",
+      "description": "Local version of Smartlead MCP for quick download and deployment to MCP compatible clients or n8n.",
+      "url": "https://mcp.so/server/smartlead-mcp-server-local/jean-technologies",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Self-hosted AI starter kit (by the n8n team)",
+      "description": "pydantic agent workflow using mcp servers to test out advanced retrieval of linked data",
+      "url": "https://mcp.so/server/pydantic_lod_test/cedricdcc",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n - Secure Workflow Automation for Technical Teams",
+      "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+      "url": "https://mcp.so/server/n8n/n8n-io",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Multi-Provider MCP Server",
+      "description": "Custom MCP Server to integrate with tools and run inside a n8n instance",
+      "url": "https://mcp.so/server/mcp_server/matheusleite",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "LinkedIn MCP Server Documentation",
+      "description": "Model Context Protocol (MCP) server for LinkedIn integration with n8n",
+      "url": "https://mcp.so/server/mcp-linkedin-server/wedlock666",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "MCP Server for SearXNG n8n Integration",
+      "description": "MCP Server for SearxNG n8n integration",
+      "url": "https://mcp.so/server/mcp-server-searxng-n8n/tamler",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "N8N MCP Server for Railway",
+      "description": "N8N MCP Server deployment for Railway",
+      "url": "https://mcp.so/server/n8n-mcp-railway/Tinycute00",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow MCP",
+      "description": "An MCP server for generating and managing n8n workflows",
+      "url": "https://mcp.so/server/n8n-workflow-mcp/aydinfer",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Serveur MCP pour n8n",
+      "description": "Open-source, modular “brain” for AI employees. Integrates with n8n and workflow engines, features persistent agent memory, natural language interface, and feedback loops. SaaS-ready, extensible, and e",
+      "url": "https://mcp.so/server/lowprofix_n8n-mcp-server/MCP-Mirror",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "mcp-n8n-builder",
+      "description": "🪄 MCP server for programmatic creation and management of n8n workflows. Enables AI assistants to build, modify, and manage workflows without direct user intervention through a comprehensive set of too",
+      "url": "https://mcp.so/server/mcp-n8n-builder/spences10",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "mcp-kagi-search",
+      "description": "A MCP server implementation for Kagi's API using npx, so it can easily be run in n8n.",
+      "url": "https://mcp.so/server/mcp-kagi-search/goranche",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "N8n Mcp Server Rust",
+      "description": "An MCP server that can use n8n.",
+      "url": "https://mcp.so/server/n8n-mcp-server-rust/joshua-mo-143",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n MCP Server",
+      "description": "Implementation Plan: Connecting Cursor to n8n Docker instance via MCP Server",
+      "url": "https://mcp.so/server/n8n-mcp-server/J2DevStudio",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "MCP n8n API Server",
+      "description": "MCP server for n8n API integration - Connect Claude AI to n8n workflows",
+      "url": "https://mcp.so/server/mcp-n8n-server/ahmadsoliman",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Google Search Console MCP Server",
+      "description": "MCP server voor Google Search Console API integratie met n8n",
+      "url": "https://mcp.so/server/google-search-console-mcp/LeonardSEO",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n MCP Server",
+      "description": "Open-source, modular “brain” for AI employees. Integrates with n8n and workflow engines, features persistent agent memory, natural language interface, and feedback loops. SaaS-ready, extensible, and e",
+      "url": "https://mcp.so/server/leonardsellem_n8n-mcp-server/MCP-Mirror",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n API MCP Server",
+      "description": "MCP Server for interacting with an n8n instance",
+      "url": "https://mcp.so/server/N8N-api-MCP/jasondsmith72",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n-mcp-server",
+      "description": "A Model-Controller-Provider (MCP) server implementation for n8n workflow automation",
+      "url": "https://mcp.so/server/n8n-mcp-server/S17S17",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n Workflow Builder MCP Server",
+      "description": "MCP server for Claude / Cursor building n8n workflow",
+      "url": "https://mcp.so/server/mcp-n8n-workflow-builder/salacoste",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Serveur MCP pour n8n",
+      "description": "Serveur MCP (Master Control Program) pour n8n qui fournit des outils de validation de workflows et de bonnes pratiques pour vos projets d'automatisation",
+      "url": "https://mcp.so/server/n8n-mcp-server/lowprofix",
+      "github_url": "",
+      "category": "",
+      "source": "MCP.so",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://mcp.so/explore?q=n8n",
+    "results_extracted": 41,
+    "search_url": "https://mcp.so/explore?q=n8n",
+    "base_url": "https://mcp.so/"
+  }
+}

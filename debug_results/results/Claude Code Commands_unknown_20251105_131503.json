@@ -1,0 +1,14 @@
+{
+  "source": "Claude Code Commands",
+  "query": "unknown",
+  "timestamp": "20251105_131503",
+  "result_count": 0,
+  "results": [],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://claudecodecommands.directory/",
+    "results_extracted": 0,
+    "search_url": "https://claudecodecommands.directory/",
+    "base_url": "https://claudecodecommands.directory/"
+  }
+}

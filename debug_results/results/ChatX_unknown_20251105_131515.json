@@ -1,0 +1,14 @@
+{
+  "source": "ChatX",
+  "query": "unknown",
+  "timestamp": "20251105_131515",
+  "result_count": 0,
+  "results": [],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://chatx.ai/",
+    "results_extracted": 0,
+    "search_url": "https://chatx.ai/",
+    "base_url": "https://chatx.ai/"
+  }
+}
