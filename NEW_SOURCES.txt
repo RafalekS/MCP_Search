@@ -1,0 +1,150 @@
+# New Sources to Add to config/conf.ini
+# Based on research conducted November 2025
+
+## ===========================================
+## MCP SERVERS - 5 New Sources
+## ===========================================
+
+[SOURCE_aixploria]
+name = AIxploria MCP Directory
+description = Comprehensive list of 500+ MCP servers with detailed information
+url = https://www.aixploria.com/en/list-best-mcp-servers-directory-ai/
+search_method = scrape
+search_selector = .mcp-server-item
+result_fields = name,description,url,category
+
+[SOURCE_mcpmarket]
+name = MCP Market
+description = Directory of awesome MCP servers and clients to connect AI agents
+url = https://mcpmarket.com/
+search_method = scrape
+search_selector = .server-card
+result_fields = name,description,github_url,category
+
+[SOURCE_portkey_mcp]
+name = Portkey MCP Servers
+description = List of 42+ MCP Servers for Claude Desktop and other tools
+url = https://portkey.ai/mcp-servers
+search_method = scrape
+search_selector = .server-listing
+result_fields = name,description,url
+
+[SOURCE_github_wong2_awesome_mcp_servers]
+name = Awesome MCP Servers (wong2)
+description = Curated list featuring MongoDB, Miro, Google Chat and more
+url = https://github.com/wong2/awesome-mcp-servers
+search_method = awesome_list
+search_repo = wong2/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url
+
+[SOURCE_github_tensorblock_awesome_mcp_servers]
+name = TensorBlock Awesome MCP
+description = Comprehensive collection of 7260+ MCP servers
+url = https://github.com/TensorBlock/awesome-mcp-servers
+search_method = awesome_list
+search_repo = TensorBlock/awesome-mcp-servers
+search_file = README.md
+result_fields = name,description,github_url
+
+## ===========================================
+## DXT TOOLS - 3 New Sources (2 existing work)
+## ===========================================
+
+[SOURCE_github_futureai_dxt]
+name = FutureAI DXT Collection
+description = Desktop Extensions for one-click MCP server installation
+url = https://github.com/FutureAIGuide/dxt
+search_method = awesome_list
+search_repo = FutureAIGuide/dxt
+search_file = README.md
+result_fields = name,description,github_url
+
+# NOTE: samihalawa already exists but verify it's working
+# NOTE: desktopextensions.com already exists and working
+# NOTE: dxt.services already exists and working
+
+## ===========================================
+## AI AGENTS - 3 New Sources
+## ===========================================
+
+[SOURCE_aiagentsverse]
+name = AI Agents Verse
+description = Comprehensive directory connecting businesses with AI solutions
+url = https://aiagentsverse.com/
+search_method = scrape
+search_selector = .agent-card
+result_fields = name,description,category,url
+
+[SOURCE_aiagentslist]
+name = AI Agents List
+description = Interactive map of 619+ AI agents across 20 categories
+url = https://aiagentslist.com/
+search_method = scrape
+search_selector = .agent-item
+result_fields = name,description,category,url
+
+[SOURCE_aiagentsdirectory_marketplace]
+name = AI Agents Directory Marketplace
+description = 1300+ enterprise-ready agents with pricing and reviews
+url = https://aiagentsdirectory.com/marketplace
+search_method = scrape
+search_selector = .marketplace-item
+result_fields = name,description,pricing,category
+
+## ===========================================
+## COMMANDS - 1 New Source (others exist)
+## ===========================================
+
+[SOURCE_github_wshobson_commands]
+name = Production-Ready Commands (wshobson)
+description = Collection of production-ready slash commands for Claude Code
+url = https://github.com/wshobson/commands
+search_method = awesome_list
+search_repo = wshobson/commands
+search_file = README.md
+result_fields = name,description,github_url
+
+## ===========================================
+## CATEGORIES UPDATE
+## ===========================================
+
+# Add to [CATEGORIES] section:
+
+mcp_servers = mcp.so,mcpservers.org,pulsemcp.com,mcpserverfinder.com,claudemcp.com,cursor.directory/mcp,github_modelcontextprotocol_servers,github_punkpeye_awesome_mcp_servers,github_serp_ai_awesome_mcp_servers,github_pipedreamhq_awesome_mcp_servers,github_evalstate_hf_mcp_server,github_milisp_mcp_linker,aixploria,mcpmarket,portkey_mcp,github_wong2_awesome_mcp_servers,github_tensorblock_awesome_mcp_servers
+
+dxt_tools = desktopextensions.com,dxt.services,dxt.so/dxts,github_samihalawa_awesome_claude_dxt,github_futureai_dxt
+
+ai_agents = aiagentsdirectory.com,agent.ai,aiagentsverse,aiagentslist,aiagentsdirectory_marketplace
+
+commands = claudecodecommands.directory,github_hesreallyhim_awesome_claude_code,github_qdhenry_claude_command_suite,github_zebbern_claude_code_guide,github_wshobson_commands
+
+## ===========================================
+## SOURCES TO REMOVE
+## ===========================================
+
+# Remove these broken/paid sources:
+# - aiagentstore.ai (now requires payment)
+# - prompthero.com (now requires payment)
+# - mcp.so/dxt (404 error on API)
+# - microsoft_agent_store (SSL certificate errors)
+# - google_cloud_ai_agent_marketplace (404)
+# - aws_ai_agent_marketplace (404)
+# - allthingsai.com/marketplace (404)
+# - promptbase.com (404)
+# - aiprm.com (404)
+# - flowgpt.com (403 geo-blocked)
+
+## ===========================================
+## SUMMARY
+## ===========================================
+
+# Total new working sources: 12
+# - MCP Servers: 5 new (now 17 total)
+# - DXT Tools: 1 new (now 5 total)
+# - AI Agents: 3 new (now 6 total)
+# - Commands: 1 new (now 5 total)
+# - AI Tools: 0 new (keep existing if working)
+# - AI Prompts: 2 existing working (Promptrr, Prompti, ChatX)
+
+# Total sources to remove: 10 broken sources
