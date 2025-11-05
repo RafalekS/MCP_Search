@@ -66,12 +66,6 @@ class DynamicThemeManager:
             # in the _apply_theme_recursively method.
             CTkThemeManager.load_theme(theme_path)
 
-            # CRITICAL FIX: Remove deprecated top_fg_color from theme if it exists
-            # CustomTkinter may still have this in its internal state from default themes
-            if "CTkFrame" in CTkThemeManager.theme and "top_fg_color" in CTkThemeManager.theme["CTkFrame"]:
-                del CTkThemeManager.theme["CTkFrame"]["top_fg_color"]
-                print("Removed deprecated top_fg_color from loaded theme")
-
             # Recursively apply the loaded theme to existing widgets in the GUI
             self._apply_theme_recursively(self.root_window)
 
