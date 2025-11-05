@@ -405,10 +405,11 @@ class CacheManager:
 
 class BaseSearchClient:
     """Base class for search clients"""
-    
+
     def __init__(self, config_manager: ConfigManager, cache_manager: CacheManager):
         self.config_manager = config_manager
         self.cache_manager = cache_manager
+        self.debug_manager = DebugManager()  # Initialize DebugManager
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'MCP_Search/1.0 (Windows)'
