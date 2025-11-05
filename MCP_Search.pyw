@@ -767,10 +767,23 @@ class BaseSearchClient:
         results = []
         source_name = source_config.get('name', 'Unknown')
         base_url = source_config.get('url', '')
-        
+
         try:
             soup = BeautifulSoup(html, 'html.parser')
-            
+
+            # Check for "no results" messages first - avoid extracting navigation when search is empty
+            html_lower = html.lower()
+            no_results_patterns = [
+                'no servers found', 'no results found', 'no matches found',
+                '0 results', 'no items found', 'nothing found', 'no matches',
+                'no search results', "we couldn't find", "couldn't find any",
+                'try a different search', 'no results match', 'found 0 results'
+            ]
+
+            if any(pattern in html_lower for pattern in no_results_patterns):
+                logger.info(f"Detected empty results for {source_name} - returning 0 results")
+                return []
+
             # Site-specific extraction logic
             if 'pulsemcp.com' in search_url:
                 results = self._parse_pulsemcp_results(soup, source_name, base_url)
@@ -1145,13 +1158,21 @@ class BaseSearchClient:
         if any(pattern in result.url.lower() for pattern in garbage_patterns):
             return False
 
-        # Skip if name is too generic or empty - EXPANDED LIST
+        # Skip if name is too generic or empty - COMPREHENSIVE LIST
         generic_names = [
             'new', 'create', 'add', 'search', 'filter', 'view', 'details', 'more',
             'home', 'about', 'contact', 'help', 'login', 'register', 'sign up',
             'see more', 'read more', 'learn more', 'view all', 'show all',
             'servers', 'tools', 'agents', 'commands', 'browse', 'explore',
-            'categories', 'tags', 'submit', 'share', 'save', 'bookmark'
+            'categories', 'tags', 'submit', 'share', 'save', 'bookmark',
+            # Navigation/category terms commonly appearing as false results
+            'latest', 'official', 'featured', 'trending', 'popular', 'top',
+            'all', 'recent', 'new releases', 'updated', 'community',
+            'documentation', 'docs', 'guides', 'tutorials', 'examples',
+            'dashboard', 'settings', 'profile', 'account', 'notifications',
+            'back', 'next', 'previous', 'page', 'pages', 'go to',
+            # Generic category/section names
+            'overview', 'getting started', 'introduction', 'quick start'
         ]
 
         if (not result.name or
