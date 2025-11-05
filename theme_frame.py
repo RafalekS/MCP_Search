@@ -121,8 +121,7 @@ class DynamicThemeManager:
                     fg_color=config["fg_color"][0],
                     border_color=config.get("border_color", ["white"])[0]
                 )
-                if "top_fg_color" in config:
-                    widget.configure(top_fg_color=config["top_fg_color"][0])
+                # Note: top_fg_color removed - not supported in current CustomTkinter version
 
             elif widget_type == "CTkButton" and "CTkButton" in theme:
                 config = theme["CTkButton"]
