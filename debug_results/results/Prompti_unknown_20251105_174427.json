@@ -1,0 +1,14 @@
+{
+  "source": "Prompti",
+  "query": "unknown",
+  "timestamp": "20251105_174427",
+  "result_count": 0,
+  "results": [],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://prompti.ai/",
+    "results_extracted": 0,
+    "search_url": "https://prompti.ai/",
+    "base_url": "https://prompti.ai/"
+  }
+}

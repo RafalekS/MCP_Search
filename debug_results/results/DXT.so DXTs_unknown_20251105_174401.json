@@ -1,0 +1,25 @@
+{
+  "source": "DXT.so DXTs",
+  "query": "unknown",
+  "timestamp": "20251105_174401",
+  "result_count": 1,
+  "results": [
+    {
+      "name": "AgentSkills",
+      "description": "No description available",
+      "url": "https://agentskills.so?utm_source=dxt.so",
+      "github_url": "",
+      "category": "",
+      "source": "DXT.so DXTs",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://dxt.so/dxts?query=n8n",
+    "results_extracted": 1,
+    "search_url": "https://dxt.so/dxts?query=n8n",
+    "base_url": "https://dxt.so/dxts"
+  }
+}

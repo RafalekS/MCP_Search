@@ -79,8 +79,8 @@
       "#2b3449"
     ],
     "placeholder_text_color": [
-      "#464e56",
-      "#464e56"
+      "#000000",
+      "#000000"
     ]
   },
   "CTkSwitch": {
@@ -108,8 +108,8 @@
       "#c3cbd5"
     ],
     "text_color_disabled": [
-      "#5e6b7c",
-      "#b4bcc6"
+      "#000000",
+      "#000000"
     ]
   },
   "CTkProgressBar": {
@@ -165,12 +165,12 @@
       "#586b78"
     ],
     "text_color": [
-      "#000000",
-      "#ffffff"
+      "#2e2829",
+      "#2e2829"
     ],
     "text_color_disabled": [
-      "#5e6b7c",
-      "#b4bcc6"
+      "#000000",
+      "#000000"
     ]
   },
   "CTkComboBox": {
@@ -198,7 +198,7 @@
     ],
     "text_color_disabled": [
       "#5e6b7c",
-      "#b4bcc6"
+      "#000000"
     ]
   },
   "CTkScrollbar": {
@@ -251,7 +251,7 @@
     "border_width": 0,
     "fg_color": [
       "#d5e4d3",
-      "#d5e4d3"
+      "#c0c0c0"
     ],
     "border_color": [
       "#000000",

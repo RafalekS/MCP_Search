@@ -1,0 +1,43 @@
+{
+  "source": "Agent.ai",
+  "query": "n8n",
+  "timestamp": "20251105_174404",
+  "result_count": 3,
+  "results": [
+    {
+      "name": "Agent Network",
+      "description": "No description available",
+      "url": "https://agent.ai/agents",
+      "github_url": "",
+      "category": "",
+      "source": "Agent.ai",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Agent Network",
+      "description": "No description available",
+      "url": "https://agent.ai/agents",
+      "github_url": "",
+      "category": "",
+      "source": "Agent.ai",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Agent.ai",
+      "description": "No description available",
+      "url": "https://agent.ai",
+      "github_url": "",
+      "category": "",
+      "source": "Agent.ai",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "scrape",
+    "base_url": "https://agent.ai/",
+    "query": "n8n"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "source": "MCP Server Finder",
+  "query": "n8n",
+  "timestamp": "20251105_174343",
+  "result_count": 7,
+  "results": [
+    {
+      "name": "https://github.com/roadahead1/goweb3_mcp_server/",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/roadahead1/https://github.com/roadahead1/goweb3_mcp_server",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n_MCP_server_complete",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/dopehunter/n8n_mcp_server_complete",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n-AI-agent-DVM-MCP-client",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/r0d8lsh0p/n8n-ai-agent-dvm-mcp-client",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n-mcp-server",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/leonardsellem/n8n-mcp-server",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n-workflow-builder",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/makafeli/n8n-workflow-builder",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "armor-crypto-mcp",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/armor wallet/armor-crypto-mcp",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "n8n-mcp-server",
+      "description": "No description available",
+      "url": "https://www.mcpserverfinder.com/servers/illuminaresolutions/n8n-mcp-server",
+      "github_url": "",
+      "category": "",
+      "source": "MCP Server Finder",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://www.mcpserverfinder.com/search?q=n8n",
+    "results_extracted": 7,
+    "search_url": "https://www.mcpserverfinder.com/search?q=n8n",
+    "base_url": "https://www.mcpserverfinder.com/"
+  }
+}
