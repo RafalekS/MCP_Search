@@ -18,13 +18,13 @@
       "#c6ced8",
       "#080808"
     ],
-    "top_fg_color": [
-      "#b7bfc9",
-      "#000000"
-    ],
     "border_color": [
       "#586b78",
       "#586b78"
+    ],
+    "top_fg_color": [
+      "#c6ced8",
+      "#080808"
     ]
   },
   "CTkButton": {

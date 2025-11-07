@@ -1,0 +1,335 @@
+{
+  "source": "DXT Services",
+  "query": "unknown",
+  "timestamp": "20251105_174359",
+  "result_count": 32,
+  "results": [
+    {
+      "name": "GitHub MCP Server",
+      "description": "222302 months ago",
+      "url": "https://dxt.services/mcp/github-mcp-server/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Daytona",
+      "description": "213912 months ago",
+      "url": "https://dxt.services/mcp/daytona/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "SafeLine",
+      "description": "175632 months ago",
+      "url": "https://dxt.services/mcp/SafeLine/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Pipedream",
+      "description": "104533 months ago",
+      "url": "https://dxt.services/mcp/pipedream/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "MCP Toolbox For Databases",
+      "description": "102322 months ago",
+      "url": "https://dxt.services/mcp/genai-toolbox/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Inbox Zero",
+      "description": "86782 months ago",
+      "url": "https://dxt.services/mcp/inbox-zero/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Arize Phoenix",
+      "description": "62564 months ago",
+      "url": "https://dxt.services/mcp/phoenix/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "AWS",
+      "description": "44824 months ago",
+      "url": "https://dxt.services/mcp/awslabs-mcp/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Firebase CLI",
+      "description": "42102 months ago",
+      "url": "https://dxt.services/mcp/firebase-tools/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "FireCrawl",
+      "description": "37474 months ago",
+      "url": "https://dxt.services/mcp/firecrawl-mcp-server/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Discord",
+      "description": "30084 months ago",
+      "url": "https://dxt.services/mcp/klavis/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Cloudflare MCP Server",
+      "description": "29032 months ago",
+      "url": "https://dxt.services/mcp/mcp-server-cloudflare/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "21st.dev Magic",
+      "description": "28564 months ago",
+      "url": "https://dxt.services/mcp/magic-mcp/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Windsurf",
+      "description": "Enhances coding workflow by integrating AI-driven autocomplete, code fixing, and real-time assistance within a unified IDE.",
+      "url": "https://dxt.services/mcp/windsurf/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Warp",
+      "description": "A fast, AI‑augmented development environment that combines a modern terminal with multi‑agent capabilities for coding, debugging, and deployment.",
+      "url": "https://dxt.services/mcp/warp/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Zencoder",
+      "description": "Provides an autonomous AI coding agent that writes, tests, and deploys code, integrates with popular IDEs, CI/CD pipelines, and a wide range of developer tools to streamline routine engineering tasks.",
+      "url": "https://dxt.services/mcp/zencoder/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Zed",
+      "description": "640563 months ago",
+      "url": "https://dxt.services/mcp/zed/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Visual Studio Code",
+      "description": "An extensible, AI‑powered code editor that supports a wide range of programming languages, integrates with GitHub Copilot, and enables development from local machines, remote containers, or the...",
+      "url": "https://dxt.services/mcp/visual-studio-code/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Typing Mind",
+      "description": "A powerful frontend chat interface that lets users interact with multiple large language models, build custom AI agents, and extend functionality with plugins while keeping data stored locally for...",
+      "url": "https://dxt.services/mcp/typing-mind/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Superjoin",
+      "description": "Transform spreadsheet workflows by leveraging AI to import data, automate updates, and execute actions directly within Google Sheets.",
+      "url": "https://dxt.services/mcp/superjoin/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Msty Studio",
+      "description": "Provides AI-powered workflows with local and online model support, privacy‑first data handling, and extensible tool integrations for seamless knowledge management and automation.",
+      "url": "https://dxt.services/mcp/msty-studio/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Roo Code",
+      "description": "187813 months ago",
+      "url": "https://dxt.services/mcp/Roo-Code/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Postman",
+      "description": "Design, test, document, and monitor APIs from a single unified platform, available as a desktop app, web version, and command‑line tools.",
+      "url": "https://dxt.services/mcp/postman/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Microsoft Copilot Studio",
+      "description": "Build, customize, and deploy AI‑powered agents that automate tasks, orchestrate workflows, and surface knowledge across Microsoft 365, Teams, SharePoint, web channels, and third‑party systems.",
+      "url": "https://dxt.services/mcp/microsoft-copilot-studio/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Memex",
+      "description": "Rapidly prototype applications without writing code, using natural language commands to generate projects across any tech stack and keep all files stored locally for full control.",
+      "url": "https://dxt.services/mcp/memex/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Glama",
+      "description": "Upload, analyze, and visualize documents, compare AI model responses, and collaborate within a secure, shortcut‑enabled workspace.",
+      "url": "https://dxt.services/mcp/all-in-one-ai-workspace/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Cursor",
+      "description": "Provides AI-driven code completion, natural‑language editing, and instant access to your entire codebase, turning the editor into an intelligent pair programmer.",
+      "url": "https://dxt.services/mcp/cursor/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Claude Desktop",
+      "description": "Provides an AI conversational assistant accessible on desktop, iOS, and Android, enabling seamless continuation of chats across devices without tab‑hopping.",
+      "url": "https://dxt.services/mcp/claude/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Claude Code",
+      "description": "Accelerates software development by embedding a powerful AI coding assistant directly into the terminal, enabling instant codebase search, multi‑file edits, and seamless integration with IDEs, CI/CD...",
+      "url": "https://dxt.services/mcp/claude-code/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "BoltAI",
+      "description": "A native macOS application that consolidates multiple AI models and services into a single interface, delivering instant AI assistance across everyday apps and workflows.",
+      "url": "https://dxt.services/mcp/boltai/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Augment Code",
+      "description": "AI-powered code assistance and autonomous software agents integrated into IDEs and terminals, delivering context‑aware autocomplete, task automation, and code generation to streamline development...",
+      "url": "https://dxt.services/mcp/augment-code/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    },
+    {
+      "name": "Tester MCP Client",
+      "description": "Connects to any MCP server using HTTP streamable or Server‑Sent Events and presents the interaction in a chat‑like UI, enabling quick testing and debugging of MCP endpoints.",
+      "url": "https://dxt.services/mcp/tester-mcp-client/",
+      "github_url": "",
+      "category": "",
+      "source": "DXT Services",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://dxt.services/",
+    "results_extracted": 32,
+    "search_url": "https://dxt.services/",
+    "base_url": "https://dxt.services/"
+  }
+}

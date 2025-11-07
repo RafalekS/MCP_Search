@@ -1,0 +1,14 @@
+{
+  "source": "Cursor MCP Directory",
+  "query": "unknown",
+  "timestamp": "20251105_151134",
+  "result_count": 0,
+  "results": [],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://cursor.directory/mcp",
+    "results_extracted": 0,
+    "search_url": "https://cursor.directory/mcp",
+    "base_url": "https://cursor.directory/mcp"
+  }
+}

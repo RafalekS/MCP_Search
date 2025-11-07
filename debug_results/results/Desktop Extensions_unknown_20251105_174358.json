@@ -1,0 +1,25 @@
+{
+  "source": "Desktop Extensions",
+  "query": "unknown",
+  "timestamp": "20251105_174358",
+  "result_count": 1,
+  "results": [
+    {
+      "name": "Start Developing Your First DXT Extension",
+      "description": "View complete technical specifications and example code, join the growing Claude Desktop Extensions developer community",
+      "url": "https://github.com/anthropics/dxt",
+      "github_url": "https://github.com/anthropics/dxt",
+      "category": "",
+      "source": "Desktop Extensions",
+      "last_updated": "",
+      "additional_info": {}
+    }
+  ],
+  "extraction_details": {
+    "method": "site_specific",
+    "site": "https://www.desktopextensions.com/",
+    "results_extracted": 1,
+    "search_url": "https://www.desktopextensions.com/",
+    "base_url": "https://www.desktopextensions.com/"
+  }
+}

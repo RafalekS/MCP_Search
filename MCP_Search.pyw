@@ -350,6 +350,140 @@ class ConfigManager:
         self.config['GENERAL']['current_theme'] = theme_name
         self.save_config()
 
+    def get_all_sources(self) -> List[Dict[str, str]]:
+        """Get all configured sources with their details"""
+        sources = []
+        for section in self.config.sections():
+            if section.startswith('SOURCE_'):
+                source_id = section.replace('SOURCE_', '')
+                source_config = dict(self.config[section])
+                source_config['id'] = source_id
+                source_config['section_name'] = section
+                sources.append(source_config)
+        return sources
+
+    def add_source(self, source_id: str, source_data: Dict[str, str]) -> bool:
+        """Add a new source to configuration"""
+        try:
+            section_name = f"SOURCE_{source_id}"
+
+            # Check if source already exists
+            if section_name in self.config:
+                logger.error(f"Source {source_id} already exists")
+                return False
+
+            # Add section
+            self.config.add_section(section_name)
+
+            # Add all fields
+            for key, value in source_data.items():
+                self.config[section_name][key] = value
+
+            self.save_config()
+            logger.info(f"Added source: {source_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error adding source: {e}")
+            return False
+
+    def update_source(self, source_id: str, source_data: Dict[str, str]) -> bool:
+        """Update an existing source"""
+        try:
+            section_name = f"SOURCE_{source_id}"
+
+            # Check if source exists
+            if section_name not in self.config:
+                logger.error(f"Source {source_id} not found")
+                return False
+
+            # Update all fields
+            for key, value in source_data.items():
+                self.config[section_name][key] = value
+
+            self.save_config()
+            logger.info(f"Updated source: {source_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error updating source: {e}")
+            return False
+
+    def delete_source(self, source_id: str) -> bool:
+        """Delete a source from configuration"""
+        try:
+            section_name = f"SOURCE_{source_id}"
+
+            # Check if source exists
+            if section_name not in self.config:
+                logger.error(f"Source {source_id} not found")
+                return False
+
+            # Remove from config
+            self.config.remove_section(section_name)
+
+            # Also remove from categories
+            if 'CATEGORIES' in self.config:
+                for category, sources_str in self.config['CATEGORIES'].items():
+                    sources = [s.strip() for s in sources_str.split(',') if s.strip()]
+                    if source_id in sources:
+                        sources.remove(source_id)
+                        self.config['CATEGORIES'][category] = ','.join(sources)
+
+            self.save_config()
+            logger.info(f"Deleted source: {source_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error deleting source: {e}")
+            return False
+
+    def add_source_to_category(self, category: str, source_id: str) -> bool:
+        """Add a source to a category"""
+        try:
+            if 'CATEGORIES' not in self.config:
+                self.config.add_section('CATEGORIES')
+
+            # Get current sources for category
+            sources_str = self.config['CATEGORIES'].get(category, '')
+            sources = [s.strip() for s in sources_str.split(',') if s.strip()]
+
+            # Add if not already present
+            if source_id not in sources:
+                sources.append(source_id)
+                self.config['CATEGORIES'][category] = ','.join(sources)
+                self.save_config()
+                logger.info(f"Added {source_id} to category {category}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error adding source to category: {e}")
+            return False
+
+    def remove_source_from_category(self, category: str, source_id: str) -> bool:
+        """Remove a source from a category"""
+        try:
+            if 'CATEGORIES' not in self.config:
+                return False
+
+            # Get current sources for category
+            sources_str = self.config['CATEGORIES'].get(category, '')
+            sources = [s.strip() for s in sources_str.split(',') if s.strip()]
+
+            # Remove if present
+            if source_id in sources:
+                sources.remove(source_id)
+                self.config['CATEGORIES'][category] = ','.join(sources)
+                self.save_config()
+                logger.info(f"Removed {source_id} from category {category}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error removing source from category: {e}")
+            return False
+
 class CacheManager:
     """Manages caching of search results"""
     
@@ -405,10 +539,11 @@ class CacheManager:
 
 class BaseSearchClient:
     """Base class for search clients"""
-    
+
     def __init__(self, config_manager: ConfigManager, cache_manager: CacheManager):
         self.config_manager = config_manager
         self.cache_manager = cache_manager
+        self.debug_manager = DebugManager()  # Initialize DebugManager
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'MCP_Search/1.0 (Windows)'
@@ -766,10 +901,23 @@ class BaseSearchClient:
         results = []
         source_name = source_config.get('name', 'Unknown')
         base_url = source_config.get('url', '')
-        
+
         try:
             soup = BeautifulSoup(html, 'html.parser')
-            
+
+            # Check for "no results" messages first - avoid extracting navigation when search is empty
+            html_lower = html.lower()
+            no_results_patterns = [
+                'no servers found', 'no results found', 'no matches found',
+                '0 results', 'no items found', 'nothing found', 'no matches',
+                'no search results', "we couldn't find", "couldn't find any",
+                'try a different search', 'no results match', 'found 0 results'
+            ]
+
+            if any(pattern in html_lower for pattern in no_results_patterns):
+                logger.info(f"Detected empty results for {source_name} - returning 0 results")
+                return []
+
             # Site-specific extraction logic
             if 'pulsemcp.com' in search_url:
                 results = self._parse_pulsemcp_results(soup, source_name, base_url)
@@ -858,23 +1006,41 @@ class BaseSearchClient:
                             # Avoid URLs and email-like patterns
                             '@' not in desc_text and
                             'github.com' not in desc_text.lower()):
-                            description = desc_text[:200]  # Limit length
+                            # Smart truncation - don't cut mid-word
+                            if len(desc_text) > 200:
+                                desc_text = desc_text[:200]
+                                last_space = desc_text.rfind(' ')
+                                if last_space > 150:
+                                    desc_text = desc_text[:last_space] + '...'
+                                else:
+                                    desc_text = desc_text + '...'
+                            description = desc_text
                             break
-                
+
                 # Extract URL - look for the main server link
                 link_elem = card.find('a', href=True)
+                url = ""
+                github_url = ""
+
                 if link_elem and link_elem.get('href'):
                     href = link_elem['href']
                     url = urljoin(base_url, href) if not href.startswith('http') else href
-                    
-                    # Only add if it's a real server page, not a search filter or navigation
-                    if '/servers/' in url and url != base_url and not any(skip in url for skip in ['?q=', 'search', 'filter']):
-                        results.append(SearchResult(
-                            name=name,
-                            description=description,
-                            url=url,
-                            source=source_name
-                        ))
+
+                # Extract GitHub URL from the card
+                github_links = card.find_all('a', href=lambda x: x and 'github.com' in x)
+                if github_links:
+                    github_href = github_links[0].get('href')
+                    github_url = github_href if github_href.startswith('http') else urljoin(base_url, github_href)
+
+                # Only add if it's a real server page, not a search filter or navigation
+                if url and '/servers/' in url and url != base_url and not any(skip in url for skip in ['?q=', 'search', 'filter']):
+                    results.append(SearchResult(
+                        name=name,
+                        description=description,
+                        url=url,
+                        github_url=github_url,
+                        source=source_name
+                    ))
                 
             except Exception as e:
                 logger.error(f"Error parsing PulseMCP card: {e}")
@@ -903,48 +1069,53 @@ class BaseSearchClient:
                 else:
                     name = server_path.replace('-', ' ') or "Unknown Server"
                 
-                # For mcpservers.org, descriptions are typically not available on the listing page
-                # Create a meaningful description from the URL structure, avoiding ad content
-                description = f"MCP server by {author}" if '/' in server_path else "MCP server"
-                
-                # Try to find any additional context, but be very strict about ad filtering
-                container = link.parent
-                for _ in range(2):  # Only go up 2 parent levels
-                    if container and container.parent:
-                        container = container.parent
-                    else:
-                        break
-                
-                if container:
-                    # Look for description but exclude pagination text and AD CONTENT
-                    desc_candidates = container.find_all(['p', 'div', 'span'])
-                    for desc_elem in desc_candidates:
-                        if desc_elem:
-                            desc_text = desc_elem.get_text(strip=True)
-                            # Very strict filtering to avoid ads and irrelevant content
-                            if (desc_text and len(desc_text) > 20 and len(desc_text) < 200 and
-                                desc_text != name and
-                                not any(skip in desc_text.lower() for skip in [
-                                    # Pagination/UI text
-                                    'showing', 'of', 'servers', 'page', 'view details', 'more',
-                                    'next', 'prev', 'total', 'results', 'found',
-                                    # Ad/sponsor content
-                                    'sponsor', 'discover', 'extract', 'interact', 'automated access',
-                                    'bright data', 'interface powering', 'public internet',
-                                    'advertisement', 'promoted', 'featured', 'sponsored',
-                                    # Generic content
-                                    'click here', 'learn more', 'read more', 'get started'
-                                ]) and
-                                not desc_text.startswith('http') and
-                                # Avoid single sentences that look like ads
-                                not (desc_text.count('.') <= 1 and len(desc_text.split()) > 10)):
-                                description = desc_text
-                                break
-                
+                # For mcpservers.org, descriptions often aren't unique on listing page
+                # DON'T use generic fallback - better to have "No description" than wrong info
+                description = "No description available"
+
+                # Try to find description within the SAME container as the link (not parents)
+                # This ensures we get description specific to THIS server, not page-level text
+                link_parent = link.parent
+                if link_parent:
+                    # Only look within immediate parent container
+                    desc_elem = link_parent.find('p', class_=lambda x: x and 'desc' in x if x else False)
+                    if not desc_elem:
+                        desc_elem = link_parent.find('div', class_=lambda x: x and 'desc' in x if x else False)
+                    if not desc_elem:
+                        # Last resort - look for any paragraph in same container
+                        desc_elem = link_parent.find('p')
+
+                    if desc_elem:
+                        desc_text = desc_elem.get_text(strip=True)
+                        # Strict validation - only accept if it looks like a real description
+                        if (desc_text and
+                            len(desc_text) > 20 and len(desc_text) < 500 and
+                            desc_text != name and
+                            # Reject anything that looks like an ad or page-level text
+                            not any(bad_phrase in desc_text.lower() for bad_phrase in [
+                                'deploy, configure & interrogate',
+                                'cloudflare', 'workers/kv/r2/d1',
+                                'bright data', 'discover', 'interface powering',
+                                'sponsored', 'advertisement', 'promoted',
+                                'showing', 'page', 'next', 'prev', 'results found'
+                            ]) and
+                            not desc_text.startswith('http')):
+                            description = desc_text
+
+                # Extract GitHub URL if present
+                github_url = ""
+                if link_parent:
+                    github_links = link_parent.find_all('a', href=lambda x: x and 'github.com' in x)
+                    if github_links:
+                        github_url = github_links[0].get('href')
+                        if not github_url.startswith('http'):
+                            github_url = urljoin(base_url, github_url)
+
                 results.append(SearchResult(
                     name=name,
                     description=description,
                     url=url,
+                    github_url=github_url,
                     source=source_name
                 ))
                 
@@ -1116,22 +1287,33 @@ class BaseSearchClient:
             '/about', '/contact', '/help', '/faq', '/terms', '/privacy',
             'javascript:', 'mailto:', '#', '?page=', '?sort=', '?filter='
         ]
-        
+
         # Skip if URL contains garbage patterns
         if any(pattern in result.url.lower() for pattern in garbage_patterns):
             return False
-        
-        # Skip if name is too generic or empty
+
+        # Skip if name is too generic or empty - COMPREHENSIVE LIST
         generic_names = [
             'new', 'create', 'add', 'search', 'filter', 'view', 'details', 'more',
-            'home', 'about', 'contact', 'help', 'login', 'register', 'sign up'
+            'home', 'about', 'contact', 'help', 'login', 'register', 'sign up',
+            'see more', 'read more', 'learn more', 'view all', 'show all',
+            'servers', 'tools', 'agents', 'commands', 'browse', 'explore',
+            'categories', 'tags', 'submit', 'share', 'save', 'bookmark',
+            # Navigation/category terms commonly appearing as false results
+            'latest', 'official', 'featured', 'trending', 'popular', 'top',
+            'all', 'recent', 'new releases', 'updated', 'community',
+            'documentation', 'docs', 'guides', 'tutorials', 'examples',
+            'dashboard', 'settings', 'profile', 'account', 'notifications',
+            'back', 'next', 'previous', 'page', 'pages', 'go to',
+            # Generic category/section names
+            'overview', 'getting started', 'introduction', 'quick start'
         ]
-        
-        if (not result.name or 
-            result.name.lower().strip() in generic_names or 
+
+        if (not result.name or
+            result.name.lower().strip() in generic_names or
             len(result.name.strip()) < 3):
             return False
-        
+
         # For cursor.directory, be more specific
         if 'cursor.directory' in search_url:
             # Skip utility pages
@@ -1185,30 +1367,49 @@ class BaseSearchClient:
             for desc_elem in desc_candidates:
                 if desc_elem:
                     desc_text = desc_elem.get_text(strip=True)
-                    if (desc_text and len(desc_text) > 15 and 
+                    if (desc_text and len(desc_text) > 15 and
                         desc_text != name and
                         desc_text.lower() not in ['view details', 'learn more', 'read more', 'details', 'more', 'click here'] and
                         not desc_text.startswith('http') and
-                        not desc_text.startswith('www.')):
-                        description = desc_text[:200]  # Limit description length
+                        not desc_text.startswith('www.') and
+                        # Filter out common ad/promotional text
+                        not any(ad_phrase in desc_text.lower() for ad_phrase in [
+                            'deploy, configure & interrogate',
+                            'cloudflare developer platform',
+                            'sponsored', 'advertisement'
+                        ])):
+                        # Smart truncation - don't cut mid-word
+                        if len(desc_text) > 200:
+                            desc_text = desc_text[:200]
+                            # Find last space to avoid cutting mid-word
+                            last_space = desc_text.rfind(' ')
+                            if last_space > 150:  # Only if we're not cutting too much
+                                desc_text = desc_text[:last_space] + '...'
+                            else:
+                                desc_text = desc_text + '...'
+                        description = desc_text
                         break
             
             # Enhanced URL extraction with preference for result-specific links
             url_candidates = []
-            
+            github_url = ""
+
             if element.name == 'a':
                 url_candidates.append(element.get('href'))
-            
+
             # Look for links within the element
             links = element.find_all('a', href=True)
             for link in links:
                 href = link.get('href')
+                # Extract GitHub URLs
+                if 'github.com' in href and not github_url:
+                    github_url = href if href.startswith('http') else urljoin(base_url, href)
                 # Prioritize links that look like they go to individual items
                 if any(pattern in href for pattern in ['/server', '/tool', '/mcp', '/project', '/repo']):
                     url_candidates.insert(0, href)  # Put at front of list
                 else:
                     url_candidates.append(href)
-            
+
             # Use the first valid URL
             for href in url_candidates:
                 if href:
@@ -1223,6 +1424,7 @@ class BaseSearchClient:
                     name=name,
                     description=description,
                     url=url,
+                    github_url=github_url,
                     source=source_config.get('name', 'Unknown')
                 )
                 
@@ -1470,6 +1672,707 @@ class LoadingDialog(ctk.CTkToplevel):
         """Close the dialog"""
         self.progress.stop()
         self.destroy()
+
+class SourceManagementDialog(ctk.CTkToplevel):
+    """Dialog for managing search sources"""
+
+    def __init__(self, parent, config_manager: ConfigManager):
+        super().__init__(parent)
+        self.config_manager = config_manager
+        self.parent_app = parent
+
+        self.title("Manage Search Sources")
+        self.geometry("1000x700")
+        self.transient(parent)
+        self.grab_set()
+
+        # Center on parent
+        self.geometry(f"+{parent.winfo_x() + 50}+{parent.winfo_y() + 50}")
+
+        # Main layout
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+
+        # Main frame
+        main_frame = ctk.CTkFrame(self)
+        main_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_rowconfigure(1, weight=1)
+
+        # Header
+        header_frame = ctk.CTkFrame(main_frame)
+        header_frame.grid(row=0, column=0, padx=10, pady=(10, 5), sticky="ew")
+
+        title_label = ctk.CTkLabel(
+            header_frame,
+            text="Search Source Management",
+            font=ctk.CTkFont(size=18, weight="bold")
+        )
+        title_label.pack(side="left", padx=10, pady=10)
+
+        info_label = ctk.CTkLabel(
+            header_frame,
+            text="Add, edit, delete, and test search sources",
+            font=ctk.CTkFont(size=12)
+        )
+        info_label.pack(side="left", padx=10, pady=10)
+
+        # Content frame with two columns
+        content_frame = ctk.CTkFrame(main_frame)
+        content_frame.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
+        content_frame.grid_columnconfigure(1, weight=1)
+        content_frame.grid_rowconfigure(0, weight=1)
+
+        # Left panel - Source list
+        list_frame = ctk.CTkFrame(content_frame)
+        list_frame.grid(row=0, column=0, padx=(10, 5), pady=10, sticky="nsew")
+        list_frame.grid_rowconfigure(1, weight=1)
+
+        list_label = ctk.CTkLabel(
+            list_frame,
+            text="All Sources:",
+            font=ctk.CTkFont(size=14, weight="bold")
+        )
+        list_label.grid(row=0, column=0, padx=10, pady=(10, 5), sticky="w")
+
+        # Source listbox
+        self.source_listbox = CTkListbox(list_frame, width=350, command=self.on_source_select)
+        self.source_listbox.grid(row=1, column=0, padx=10, pady=(5, 10), sticky="nsew")
+
+        # Right panel - Details and actions
+        details_frame = ctk.CTkFrame(content_frame)
+        details_frame.grid(row=0, column=1, padx=(5, 10), pady=10, sticky="nsew")
+        details_frame.grid_columnconfigure(0, weight=1)
+        details_frame.grid_rowconfigure(0, weight=1)
+
+        # Details display
+        self.details_display = ctk.CTkScrollableFrame(details_frame)
+        self.details_display.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+        self.details_display.grid_columnconfigure(0, weight=1)
+
+        # Default message
+        self.default_label = ctk.CTkLabel(
+            self.details_display,
+            text="Select a source from the list to view details",
+            font=ctk.CTkFont(size=14)
+        )
+        self.default_label.grid(row=0, column=0, padx=20, pady=50)
+
+        # Action buttons at bottom
+        button_frame = ctk.CTkFrame(main_frame)
+        button_frame.grid(row=2, column=0, padx=10, pady=(5, 10), sticky="ew")
+        button_frame.grid_columnconfigure((0, 1, 2, 3, 4), weight=1)
+
+        add_btn = ctk.CTkButton(
+            button_frame,
+            text="➕ Add New Source",
+            command=self.add_source,
+            fg_color="green",
+            hover_color="darkgreen",
+            height=40
+        )
+        add_btn.grid(row=0, column=0, padx=5, pady=10, sticky="ew")
+
+        self.edit_btn = ctk.CTkButton(
+            button_frame,
+            text="✏️ Edit Source",
+            command=self.edit_source,
+            fg_color="orange",
+            hover_color="darkorange",
+            height=40,
+            state="disabled"
+        )
+        self.edit_btn.grid(row=0, column=1, padx=5, pady=10, sticky="ew")
+
+        self.delete_btn = ctk.CTkButton(
+            button_frame,
+            text="🗑️ Delete Source",
+            command=self.delete_source,
+            fg_color="red",
+            hover_color="darkred",
+            height=40,
+            state="disabled"
+        )
+        self.delete_btn.grid(row=0, column=2, padx=5, pady=10, sticky="ew")
+
+        self.test_btn = ctk.CTkButton(
+            button_frame,
+            text="🔍 Test Source",
+            command=self.test_source,
+            fg_color="purple",
+            hover_color="darkviolet",
+            height=40,
+            state="disabled"
+        )
+        self.test_btn.grid(row=0, column=3, padx=5, pady=10, sticky="ew")
+
+        close_btn = ctk.CTkButton(
+            button_frame,
+            text="Close",
+            command=self.destroy,
+            fg_color="gray",
+            hover_color="darkgray",
+            height=40
+        )
+        close_btn.grid(row=0, column=4, padx=5, pady=10, sticky="ew")
+
+        # Load sources
+        self.selected_source = None
+        self.load_sources()
+
+    def load_sources(self):
+        """Load all sources into the listbox"""
+        # Clear listbox
+        self.source_listbox.delete("all")
+
+        # Get all sources
+        sources = self.config_manager.get_all_sources()
+
+        # Sort by name
+        sources.sort(key=lambda x: x.get('name', x['id']))
+
+        # Add to listbox
+        for source in sources:
+            display_text = f"{source.get('name', source['id'])} ({source['id']})"
+            self.source_listbox.insert("end", display_text)
+
+    def on_source_select(self, selected_text: str):
+        """Handle source selection"""
+        if not selected_text:
+            return
+
+        # Extract source ID from display text (between parentheses)
+        import re
+        match = re.search(r'\(([^)]+)\)$', selected_text)
+        if not match:
+            return
+
+        source_id = match.group(1)
+        self.selected_source = source_id
+
+        # Enable action buttons
+        self.edit_btn.configure(state="normal")
+        self.delete_btn.configure(state="normal")
+        self.test_btn.configure(state="normal")
+
+        # Display source details
+        self.display_source_details(source_id)
+
+    def display_source_details(self, source_id: str):
+        """Display details of the selected source"""
+        # Clear existing widgets
+        for widget in self.details_display.winfo_children():
+            widget.destroy()
+
+        # Get source config
+        source_config = self.config_manager.get_source_config(source_id)
+
+        if not source_config:
+            error_label = ctk.CTkLabel(
+                self.details_display,
+                text="Error loading source details",
+                font=ctk.CTkFont(size=14)
+            )
+            error_label.grid(row=0, column=0, padx=20, pady=50)
+            return
+
+        # Display each field
+        row = 0
+
+        # Source ID
+        id_label = ctk.CTkLabel(
+            self.details_display,
+            text="Source ID:",
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        id_label.grid(row=row, column=0, padx=10, pady=(10, 2), sticky="w")
+
+        id_value = ctk.CTkLabel(
+            self.details_display,
+            text=source_id,
+            font=ctk.CTkFont(size=12)
+        )
+        id_value.grid(row=row+1, column=0, padx=10, pady=(2, 10), sticky="w")
+        row += 2
+
+        # Display all other fields
+        field_labels = {
+            'name': 'Name',
+            'description': 'Description',
+            'url': 'URL',
+            'search_method': 'Search Method',
+            'search_endpoint': 'Search Endpoint',
+            'search_selector': 'Search Selector',
+            'search_repo': 'GitHub Repository',
+            'search_file': 'Search File',
+            'result_fields': 'Result Fields'
+        }
+
+        for key, label in field_labels.items():
+            if key in source_config and source_config[key]:
+                field_label = ctk.CTkLabel(
+                    self.details_display,
+                    text=f"{label}:",
+                    font=ctk.CTkFont(size=12, weight="bold")
+                )
+                field_label.grid(row=row, column=0, padx=10, pady=(5, 2), sticky="w")
+
+                field_value = ctk.CTkLabel(
+                    self.details_display,
+                    text=source_config[key],
+                    font=ctk.CTkFont(size=12),
+                    wraplength=400
+                )
+                field_value.grid(row=row+1, column=0, padx=10, pady=(2, 5), sticky="w")
+                row += 2
+
+    def add_source(self):
+        """Show dialog to add a new source"""
+        AddEditSourceDialog(self, self.config_manager, mode="add", on_complete=self.load_sources)
+
+    def edit_source(self):
+        """Show dialog to edit the selected source"""
+        if not self.selected_source:
+            return
+
+        AddEditSourceDialog(
+            self, self.config_manager,
+            mode="edit",
+            source_id=self.selected_source,
+            on_complete=self.load_sources
+        )
+
+    def delete_source(self):
+        """Delete the selected source"""
+        if not self.selected_source:
+            return
+
+        # Confirmation dialog
+        from tkinter import messagebox
+        response = messagebox.askyesno(
+            "Confirm Deletion",
+            f"Are you sure you want to delete the source '{self.selected_source}'?\n\n"
+            "This will also remove it from all categories.",
+            parent=self
+        )
+
+        if response:
+            success = self.config_manager.delete_source(self.selected_source)
+
+            if success:
+                messagebox.showinfo(
+                    "Success",
+                    f"Source '{self.selected_source}' has been deleted successfully.",
+                    parent=self
+                )
+                self.selected_source = None
+                self.load_sources()
+
+                # Clear details display
+                for widget in self.details_display.winfo_children():
+                    widget.destroy()
+
+                self.default_label = ctk.CTkLabel(
+                    self.details_display,
+                    text="Select a source from the list to view details",
+                    font=ctk.CTkFont(size=14)
+                )
+                self.default_label.grid(row=0, column=0, padx=20, pady=50)
+
+                # Disable action buttons
+                self.edit_btn.configure(state="disabled")
+                self.delete_btn.configure(state="disabled")
+                self.test_btn.configure(state="disabled")
+            else:
+                messagebox.showerror(
+                    "Error",
+                    f"Failed to delete source '{self.selected_source}'.",
+                    parent=self
+                )
+
+    def test_source(self):
+        """Test the selected source with a sample query"""
+        if not self.selected_source:
+            return
+
+        # Show test dialog
+        TestSourceDialog(self, self.config_manager, self.selected_source)
+
+class AddEditSourceDialog(ctk.CTkToplevel):
+    """Dialog for adding or editing a source"""
+
+    def __init__(self, parent, config_manager: ConfigManager, mode="add", source_id=None, on_complete=None):
+        super().__init__(parent)
+        self.config_manager = config_manager
+        self.mode = mode
+        self.source_id = source_id
+        self.on_complete = on_complete
+
+        self.title("Add New Source" if mode == "add" else "Edit Source")
+        self.geometry("700x800")
+        self.transient(parent)
+        self.grab_set()
+
+        # Center on parent
+        self.geometry(f"+{parent.winfo_x() + 100}+{parent.winfo_y() + 50}")
+
+        # Main frame
+        main_frame = ctk.CTkScrollableFrame(self)
+        main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+        # Title
+        title_text = "Add New Search Source" if mode == "add" else f"Edit Source: {source_id}"
+        title_label = ctk.CTkLabel(
+            main_frame,
+            text=title_text,
+            font=ctk.CTkFont(size=16, weight="bold")
+        )
+        title_label.pack(pady=(0, 20))
+
+        # Form fields
+        self.fields = {}
+
+        # Source ID (only for add mode)
+        if mode == "add":
+            self._create_field(main_frame, "source_id", "Source ID*", "e.g., github_username_repo or website.com")
+
+        # Name
+        self._create_field(main_frame, "name", "Name*", "Display name for this source")
+
+        # Description
+        self._create_field(main_frame, "description", "Description*", "Brief description of what this source provides")
+
+        # URL
+        self._create_field(main_frame, "url", "URL*", "Base URL of the source (e.g., https://example.com)")
+
+        # Search Method dropdown
+        method_frame = ctk.CTkFrame(main_frame)
+        method_frame.pack(fill="x", pady=10)
+
+        method_label = ctk.CTkLabel(method_frame, text="Search Method*:", font=ctk.CTkFont(size=12, weight="bold"))
+        method_label.pack(anchor="w", padx=10, pady=(5, 2))
+
+        self.search_method_var = ctk.StringVar(value="url_param")
+        search_method_dropdown = ctk.CTkOptionMenu(
+            method_frame,
+            values=["url_param", "scrape", "awesome_list", "api"],
+            variable=self.search_method_var,
+            command=self._on_search_method_change
+        )
+        search_method_dropdown.pack(fill="x", padx=10, pady=(2, 5))
+
+        # Method-specific fields container
+        self.method_fields_frame = ctk.CTkFrame(main_frame)
+        self.method_fields_frame.pack(fill="x", pady=10)
+
+        # Result Fields
+        self._create_field(main_frame, "result_fields", "Result Fields*", "Comma-separated: name,description,github_url,category")
+
+        # Category selection
+        category_frame = ctk.CTkFrame(main_frame)
+        category_frame.pack(fill="x", pady=10)
+
+        cat_label = ctk.CTkLabel(category_frame, text="Add to Categories:", font=ctk.CTkFont(size=12, weight="bold"))
+        cat_label.pack(anchor="w", padx=10, pady=(5, 2))
+
+        cat_info = ctk.CTkLabel(
+            category_frame,
+            text="Select which categories this source should appear in",
+            font=ctk.CTkFont(size=11)
+        )
+        cat_info.pack(anchor="w", padx=10, pady=(0, 5))
+
+        # Category checkboxes
+        self.category_vars = {}
+        categories = self.config_manager.get_categories()
+
+        for category in categories.keys():
+            var = ctk.BooleanVar(value=False)
+            self.category_vars[category] = var
+
+            checkbox = ctk.CTkCheckBox(
+                category_frame,
+                text=category.replace('_', ' ').title(),
+                variable=var
+            )
+            checkbox.pack(anchor="w", padx=20, pady=2)
+
+        # Load existing data if editing
+        if mode == "edit" and source_id:
+            self._load_source_data(source_id)
+
+        # Initialize method-specific fields
+        self._on_search_method_change(self.search_method_var.get())
+
+        # Buttons
+        button_frame = ctk.CTkFrame(self)
+        button_frame.pack(fill="x", padx=20, pady=(0, 20))
+
+        save_btn = ctk.CTkButton(
+            button_frame,
+            text="Save Source" if mode == "add" else "Update Source",
+            command=self.save_source,
+            fg_color="green",
+            hover_color="darkgreen",
+            height=40
+        )
+        save_btn.pack(side="left", padx=(20, 10), pady=10, expand=True, fill="x")
+
+        cancel_btn = ctk.CTkButton(
+            button_frame,
+            text="Cancel",
+            command=self.destroy,
+            fg_color="gray",
+            hover_color="darkgray",
+            height=40
+        )
+        cancel_btn.pack(side="right", padx=(10, 20), pady=10, expand=True, fill="x")
+
+    def _create_field(self, parent, key, label, placeholder):
+        """Create a form field"""
+        frame = ctk.CTkFrame(parent)
+        frame.pack(fill="x", pady=5)
+
+        field_label = ctk.CTkLabel(frame, text=f"{label}:", font=ctk.CTkFont(size=12, weight="bold"))
+        field_label.pack(anchor="w", padx=10, pady=(5, 2))
+
+        entry = ctk.CTkEntry(frame, placeholder_text=placeholder)
+        entry.pack(fill="x", padx=10, pady=(2, 5))
+
+        self.fields[key] = entry
+
+    def _on_search_method_change(self, method):
+        """Handle search method change"""
+        # Clear existing method-specific fields
+        for widget in self.method_fields_frame.winfo_children():
+            widget.destroy()
+
+        if method == "url_param":
+            self._create_field(self.method_fields_frame, "search_endpoint", "Search Endpoint*", "URL with {query} placeholder, e.g., https://site.com/search?q={query}")
+
+        elif method == "scrape":
+            self._create_field(self.method_fields_frame, "search_selector", "CSS Selector*", "CSS selector for result items, e.g., .result-item")
+
+        elif method == "awesome_list":
+            self._create_field(self.method_fields_frame, "search_repo", "GitHub Repository*", "owner/repo, e.g., username/awesome-list")
+            self._create_field(self.method_fields_frame, "search_file", "File Path", "Path to file in repo (default: README.md)")
+
+        elif method == "api":
+            self._create_field(self.method_fields_frame, "search_endpoint", "API Endpoint*", "API URL with {query} placeholder")
+
+    def _load_source_data(self, source_id):
+        """Load existing source data for editing"""
+        source_config = self.config_manager.get_source_config(source_id)
+
+        if not source_config:
+            return
+
+        # Load basic fields
+        for key, entry in self.fields.items():
+            if key in source_config:
+                entry.insert(0, source_config[key])
+
+        # Load search method
+        if 'search_method' in source_config:
+            self.search_method_var.set(source_config['search_method'])
+
+        # Load categories
+        categories = self.config_manager.get_categories()
+        for category, sources in categories.items():
+            if source_id in sources:
+                if category in self.category_vars:
+                    self.category_vars[category].set(True)
+
+    def save_source(self):
+        """Save the source"""
+        from tkinter import messagebox
+
+        # Get source ID
+        if self.mode == "add":
+            source_id = self.fields['source_id'].get().strip()
+            if not source_id:
+                messagebox.showerror("Error", "Source ID is required.", parent=self)
+                return
+        else:
+            source_id = self.source_id
+
+        # Validate required fields
+        required_fields = ['name', 'description', 'url', 'result_fields']
+        for field in required_fields:
+            if field in self.fields and not self.fields[field].get().strip():
+                messagebox.showerror("Error", f"{field.replace('_', ' ').title()} is required.", parent=self)
+                return
+
+        # Get search method
+        search_method = self.search_method_var.get()
+
+        # Validate method-specific required fields
+        method_required = {
+            'url_param': ['search_endpoint'],
+            'scrape': ['search_selector'],
+            'awesome_list': ['search_repo'],
+            'api': ['search_endpoint']
+        }
+
+        if search_method in method_required:
+            for field in method_required[search_method]:
+                if field in self.fields and not self.fields[field].get().strip():
+                    messagebox.showerror("Error", f"{field.replace('_', ' ').title()} is required for {search_method} method.", parent=self)
+                    return
+
+        # Build source data
+        source_data = {
+            'search_method': search_method
+        }
+
+        for key, entry in self.fields.items():
+            if key != 'source_id':  # Don't include source_id in data
+                value = entry.get().strip()
+                if value:
+                    source_data[key] = value
+
+        # Save source
+        if self.mode == "add":
+            success = self.config_manager.add_source(source_id, source_data)
+        else:
+            success = self.config_manager.update_source(source_id, source_data)
+
+        if not success:
+            messagebox.showerror("Error", f"Failed to {self.mode} source.", parent=self)
+            return
+
+        # Update categories
+        for category, var in self.category_vars.items():
+            if var.get():
+                self.config_manager.add_source_to_category(category, source_id)
+            else:
+                self.config_manager.remove_source_from_category(category, source_id)
+
+        # Success
+        messagebox.showinfo("Success", f"Source {source_id} has been {'added' if self.mode == 'add' else 'updated'} successfully!", parent=self)
+
+        # Close dialog and refresh parent
+        if self.on_complete:
+            self.on_complete()
+
+        self.destroy()
+
+class TestSourceDialog(ctk.CTkToplevel):
+    """Dialog for testing a source"""
+
+    def __init__(self, parent, config_manager: ConfigManager, source_id: str):
+        super().__init__(parent)
+        self.config_manager = config_manager
+        self.source_id = source_id
+
+        self.title(f"Test Source: {source_id}")
+        self.geometry("800x600")
+        self.transient(parent)
+        self.grab_set()
+
+        # Center on parent
+        self.geometry(f"+{parent.winfo_x() + 100}+{parent.winfo_y() + 100}")
+
+        # Main frame
+        main_frame = ctk.CTkFrame(self)
+        main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_rowconfigure(2, weight=1)
+
+        # Title
+        title_label = ctk.CTkLabel(
+            main_frame,
+            text=f"Test Source: {source_id}",
+            font=ctk.CTkFont(size=16, weight="bold")
+        )
+        title_label.grid(row=0, column=0, padx=10, pady=(10, 20), sticky="w")
+
+        # Query input
+        query_frame = ctk.CTkFrame(main_frame)
+        query_frame.grid(row=1, column=0, padx=10, pady=(0, 10), sticky="ew")
+        query_frame.grid_columnconfigure(1, weight=1)
+
+        query_label = ctk.CTkLabel(query_frame, text="Test Query:", font=ctk.CTkFont(size=12, weight="bold"))
+        query_label.grid(row=0, column=0, padx=10, pady=10)
+
+        self.query_entry = ctk.CTkEntry(query_frame, placeholder_text="Enter a test search query...")
+        self.query_entry.grid(row=0, column=1, padx=(5, 10), pady=10, sticky="ew")
+
+        test_btn = ctk.CTkButton(
+            query_frame,
+            text="🔍 Test",
+            command=self.run_test,
+            width=100
+        )
+        test_btn.grid(row=0, column=2, padx=10, pady=10)
+
+        # Results display
+        results_frame = ctk.CTkFrame(main_frame)
+        results_frame.grid(row=2, column=0, padx=10, pady=(0, 10), sticky="nsew")
+        results_frame.grid_columnconfigure(0, weight=1)
+        results_frame.grid_rowconfigure(0, weight=1)
+
+        self.results_text = ctk.CTkTextbox(results_frame, wrap="word")
+        self.results_text.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+
+        # Close button
+        close_btn = ctk.CTkButton(
+            main_frame,
+            text="Close",
+            command=self.destroy,
+            width=150
+        )
+        close_btn.grid(row=3, column=0, pady=(0, 10))
+
+    def run_test(self):
+        """Run a test search on the source"""
+        query = self.query_entry.get().strip()
+
+        if not query:
+            from tkinter import messagebox
+            messagebox.showerror("Error", "Please enter a test query.", parent=self)
+            return
+
+        self.results_text.delete("1.0", "end")
+        self.results_text.insert("1.0", "Testing source...\n\n")
+        self.update()
+
+        try:
+            # Create a temporary search client
+            cache_manager = CacheManager()
+            search_client = BaseSearchClient(self.config_manager, cache_manager)
+
+            # Perform search
+            results = search_client.search(self.source_id, query, use_cache=False)
+
+            # Display results
+            self.results_text.delete("1.0", "end")
+
+            if results:
+                self.results_text.insert("end", f"✓ Success! Found {len(results)} results:\n\n")
+
+                for i, result in enumerate(results[:10], 1):  # Show first 10
+                    self.results_text.insert("end", f"{i}. {result.name}\n")
+                    if result.description:
+                        self.results_text.insert("end", f"   Description: {result.description[:100]}...\n")
+                    if result.url:
+                        self.results_text.insert("end", f"   URL: {result.url}\n")
+                    if result.github_url:
+                        self.results_text.insert("end", f"   GitHub: {result.github_url}\n")
+                    self.results_text.insert("end", "\n")
+
+                if len(results) > 10:
+                    self.results_text.insert("end", f"... and {len(results) - 10} more results\n")
+            else:
+                self.results_text.insert("end", "✗ No results found. The source may be:\n")
+                self.results_text.insert("end", "  - Not working correctly\n")
+                self.results_text.insert("end", "  - Misconfigured\n")
+                self.results_text.insert("end", "  - Not returning results for this query\n")
+
+        except Exception as e:
+            self.results_text.delete("1.0", "end")
+            self.results_text.insert("end", f"✗ Error testing source:\n\n{str(e)}\n\n")
+            self.results_text.insert("end", "Please check the source configuration and try again.")
 
 class SearchManager:
     """Manages searches across multiple sources"""
@@ -1770,6 +2673,16 @@ class MCPSearchGUI(ctk.CTk):
         )
         self.export_button.grid(row=0, column=3, padx=2, pady=10, sticky="ew")
 
+        self.manage_sources_button = ctk.CTkButton(
+            self.button_frame,
+            text="🔧 Manage Sources",
+            command=self.show_source_management,
+            fg_color="#1f6aa5",
+            hover_color="#144870",
+            height=40
+        )
+        self.manage_sources_button.grid(row=0, column=4, padx=2, pady=10, sticky="ew")
+
         self.settings_button = ctk.CTkButton(
             self.button_frame,
             text="⚙️ Settings",
@@ -1778,7 +2691,7 @@ class MCPSearchGUI(ctk.CTk):
             hover_color="darkviolet",
             height=40
         )
-        self.settings_button.grid(row=0, column=4, padx=2, pady=10, sticky="ew")
+        self.settings_button.grid(row=0, column=5, padx=2, pady=10, sticky="ew")
     
     def _create_results_section(self):
         """Create results display section with tabs"""
@@ -2454,7 +3367,11 @@ class MCPSearchGUI(ctk.CTk):
             hover_color="darkgray"
         )
         cancel_btn.pack(side="right", padx=(10, 20), pady=10)
-    
+
+    def show_source_management(self):
+        """Show source management dialog"""
+        SourceManagementDialog(self, self.config_manager)
+
     def show_settings(self):
         """Show settings dialog"""
         # Create settings window
@@ -2562,8 +3479,11 @@ def main():
         app.mainloop()
         
     except Exception as e:
-        logger.error(f"Application error: {e}")
-        messagebox.showerror("Application Error", f"An error occurred: {e}")
+        import traceback
+        error_details = traceback.format_exc()
+        logger.error(f"Application error: {e}\nTraceback:\n{error_details}")
+        print(f"Full error traceback:\n{error_details}")
+        messagebox.showerror("Application Error", f"An error occurred: {e}\nCheck console for details.")
 
 if __name__ == "__main__":
     main()
